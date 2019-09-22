@@ -18,7 +18,7 @@ public class VentanaJuego extends JFrame {
 	JFrame ventana;
 	JPanel pPrincipal;
 	JPanel botonera;
-	JLabelCoche car2;
+	private static CocheJuego c;
 	private Graphics2D graficos;
 	private BufferedImage buffer;
 
@@ -32,9 +32,9 @@ public class VentanaJuego extends JFrame {
 		
 		ventana.setLayout(new BorderLayout());
 		ventana.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		pPrincipal = new JPanel();
-		pPrincipal.setLayout(null);
-		ventana.add(pPrincipal, BorderLayout.CENTER);
+//		pPrincipal = new JPanel();
+//		pPrincipal.setLayout(null);
+//		ventana.add(pPrincipal, BorderLayout.CENTER);
 		botonera = new JPanel();
 		botonera.setLayout(new FlowLayout());
 		
@@ -50,46 +50,45 @@ public class VentanaJuego extends JFrame {
 		ventana.add(botonera, BorderLayout.SOUTH);
 		ventana.setSize(750, 750);
 	
-		JLabelCoche car2 = new JLabelCoche("data/coche.png");
-		pPrincipal.add(car2);
-		graficos.drawImage(car2.getImagePorqueJavaNoMeLaDa(), 50, 50, 100, 100, null);
+//		JLabelCoche car2 = new JLabelCoche("data/coche.png");
+//		pPrincipal.add(car2);
+//		graficos.drawImage(car2.getImagePorqueJavaNoMeLaDa(), 50, 50, 100, 100, null);
 		ventana.setVisible(true);
 		
 		acc.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				car2.getCoche().acelera(5);	
+				c.getAuto().getCoche().acelera(5);	
 			}
 		});
 		
 		fren.addActionListener(new ActionListener() {
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						car2.getCoche().acelera(-5);	
-					}
-				});
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				c.getAuto().getCoche().acelera(-5);	
+			}
+		});
 		
 		gIzq.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				car2.getCoche().gira(10);
+				c.getAuto().getCoche().gira(-10);
 				}
 		});
 		
 		gDer.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				car2.getCoche().gira(-10);	
-			}
+				c.getAuto().getCoche().gira(10);
+				}
 		});
 	}
 	
 	public static void main(String[] args) {
 		JFrame v = new VentanaJuego();
-		Coche c = new Coche();
+		c = new CocheJuego(v);
 		c.setPosX(150);
 		c.setPosY(100);
-		System.out.println(c.toString());
 		
 	}
 	
