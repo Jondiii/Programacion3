@@ -84,15 +84,22 @@ public class VentanaJuego extends JFrame {
 		});
 	}
 	
+//	public static void main(String[] args) {
+//		VentanaJuego v = new VentanaJuego();
+//		c = new CocheJuego(v);
+//		c.setPosX(150);
+//		c.setPosY(100);
+//		
+//	}
+//	
+
 	public static void main(String[] args) {
-		JFrame v = new VentanaJuego();
-		c = new CocheJuego(v);
-		c.setPosX(150);
-		c.setPosY(100);
+		VentanaJuego v = new VentanaJuego();
+		Coche car = new Coche(v);
 		
 	}
 	
-
+	
 	 private class hiloCoche implements Runnable {
 
 		@Override

@@ -15,7 +15,6 @@ public class CocheJuego extends Coche {
 		panelJuego.add(auto);
 		v.add(panelJuego, BorderLayout.CENTER);
 		v.revalidate();
-		
 	}
 	
 	public void redibujar(int posX, int posY) {

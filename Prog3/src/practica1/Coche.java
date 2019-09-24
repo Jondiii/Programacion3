@@ -6,6 +6,8 @@ public class Coche {
 	protected double posX; // Posición en X (horizontal)
 	protected double posY; // Posición en Y (vertical)
 	private String piloto; // Nombre de piloto
+	private CocheJuego c;
+	
 	
 	public Coche() {
 		miVelocidad = 0;
@@ -13,6 +15,15 @@ public class Coche {
 		posX = 0;
 		posY = 0;
 		piloto = "0";
+	}
+	
+	public Coche(VentanaJuego v) {
+		miVelocidad = 0;
+		miDireccionActual = 0;
+		posX = 0;
+		posY = 0;
+		piloto = "0";
+		c = new CocheJuego(v);
 	}
 	
 	//TODO Faltan los pasos 5, 6, 8 y 9
