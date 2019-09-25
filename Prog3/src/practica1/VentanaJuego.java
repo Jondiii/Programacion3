@@ -16,9 +16,10 @@ import javax.swing.JPanel;
 public class VentanaJuego extends JFrame {
 	
 	JFrame ventana;
+	private static VentanaJuego v;
 	JPanel pPrincipal;
 	JPanel botonera;
-	private static CocheJuego c;
+	private static Coche c;
 	private Graphics2D graficos;
 	private BufferedImage buffer;
 
@@ -58,28 +59,36 @@ public class VentanaJuego extends JFrame {
 		acc.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				c.getAuto().getCoche().acelera(5);	
+				c.acelera(5);
+				v.revalidate();
+
 			}
 		});
 		
 		fren.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				c.getAuto().getCoche().acelera(-5);	
+				c.acelera(-5);
+				v.revalidate();
+
 			}
 		});
 		
 		gIzq.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				c.getAuto().getCoche().gira(-10);
+				c.gira(-10);
+				v.revalidate();
+
 				}
 		});
 		
 		gDer.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				c.getAuto().getCoche().gira(10);
+				c.gira(10);
+				v.revalidate();
+				
 				}
 		});
 	}
@@ -94,25 +103,28 @@ public class VentanaJuego extends JFrame {
 //	
 
 	public static void main(String[] args) {
-		VentanaJuego v = new VentanaJuego();
-		Coche car = new Coche(v);
+		v = new VentanaJuego();
+		c = new Coche(v);
 		
-	}
-	
-	
-	 private class hiloCoche implements Runnable {
+		Thread hiloCoche = new Thread() {
 
-		@Override
-		public void run() {
-			ventana.repaint();
-			try {
-				wait(40);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			@Override
+			public void run() {
+				v.repaint();
+				try {
+					 Thread.sleep(50);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
-		}
 		
-	}
-}
+	};
+	
+		hiloCoche.start();
+		v.revalidate();
+		
+	
+}}
+
 
