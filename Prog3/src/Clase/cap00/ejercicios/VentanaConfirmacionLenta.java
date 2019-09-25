@@ -40,7 +40,7 @@ public class VentanaConfirmacionLenta {
 		v.setDefaultCloseOperation(v.DISPOSE_ON_CLOSE);
 
 		JPanel pPrincipal = new JPanel();
-		JTextField texto = new JTextField("Introduce algo y pulsa confirmar");
+		JTextField texto = new JTextField(20);
 		pPrincipal.add(texto);
 		JButton bConf = new JButton("Confirmar");
 		JPanel pBoton = new JPanel();
