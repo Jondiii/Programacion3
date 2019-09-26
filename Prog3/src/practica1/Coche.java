@@ -1,5 +1,7 @@
 package practica1;
 
+import javax.swing.JFrame;
+
 public class Coche {
 	private double miVelocidad; // Velocidad en pixels/segundo
 	protected double miDireccionActual; // Dirección en la que estoy mirando en grados (de 0 a 360)
@@ -10,19 +12,19 @@ public class Coche {
 	
 	
 	public Coche() {
-		miVelocidad = 0;
-		miDireccionActual = 0;
-		posX = 0;
-		posY = 0;
-		piloto = "0";
+		this.miVelocidad = 0;
+		this.miDireccionActual = 0;
+		this.posX = 0;
+		this.posY = 0;
+		this.piloto = "0";
 	}
 	
-	public Coche(VentanaJuego v) {
-		miVelocidad = 0;
-		miDireccionActual = 0;
-		posX = 0;
-		posY = 0;
-		piloto = "0";
+	public Coche(JFrame v) {
+		this.miVelocidad = 0;
+		this.miDireccionActual = 0;
+		this.posX = 0;
+		this.posY = 0;
+		this.piloto = "0";
 		c = new CocheJuego(v);
 	}
 	
@@ -32,7 +34,7 @@ public class Coche {
 	 * @param aceleracion Incremento de la velocidad en pixels/segundo
 	 */
 	 public void acelera( double aceleracion ) {
-		 miVelocidad = miVelocidad + aceleracion;
+		 setMiVelocidad(miVelocidad + aceleracion);
 		 System.out.println("Velocidad: " + miVelocidad + " píxeles/segundo.");
 	 }
 	 
@@ -40,7 +42,7 @@ public class Coche {
 	 * @param giro Angulo de giro a sumar o restar de la dirección actual, en grados (-180 a +180)
 	 */
 	 public void gira( double giro ) {
-		 miDireccionActual = miDireccionActual + giro;
+		 setMiDireccionActual(miDireccionActual + giro);
 		 System.out.println("Dirección: " + miDireccionActual);
 	 }
 	 
@@ -48,8 +50,9 @@ public class Coche {
 	 * @param tiempoDeMovimiento Tiempo transcurrido, en segundos
 	 */
 	 public void mueve( double tiempoDeMovimiento ) {
-		 posX = miVelocidad * tiempoDeMovimiento * Math.cos(miDireccionActual);
-		 posY = miVelocidad * tiempoDeMovimiento * Math.sin(miDireccionActual);
+		 setPosX(miVelocidad * tiempoDeMovimiento * Math.cos(Math.toRadians(miDireccionActual)));
+		 setPosY(miVelocidad * tiempoDeMovimiento * Math.sin(Math.toRadians(miDireccionActual)));
+		 c.redibujar((int)posX, (int)posY);
 	 } 
 	
 	@Override

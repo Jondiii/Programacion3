@@ -5,6 +5,9 @@ import java.awt.FlowLayout;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.awt.image.BufferedImage;
 
 import javax.swing.Icon;
@@ -15,27 +18,25 @@ import javax.swing.JPanel;
 
 public class VentanaJuego extends JFrame {
 	
-	JFrame ventana;
 	private static VentanaJuego v;
-	JPanel pPrincipal;
-	JPanel botonera;
+	private JPanel botonera;
 	private static Coche c;
-	private Graphics2D graficos;
-	private BufferedImage buffer;
+	
+	public static boolean fin_juego;
 
 
 	
 	public VentanaJuego() {
-		ventana = new JFrame();
+	
+		setLayout(new BorderLayout());
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);	
+		setSize(750, 750);
+		setLocation(200, 100);
 		
-		buffer = new BufferedImage(3000, 3000, BufferedImage.TYPE_INT_ARGB);
-		graficos = buffer.createGraphics();
-		
-		ventana.setLayout(new BorderLayout());
-		ventana.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-//		pPrincipal = new JPanel();
-//		pPrincipal.setLayout(null);
-//		ventana.add(pPrincipal, BorderLayout.CENTER);
+	};
+	
+	public void anadirBotones() {
+
 		botonera = new JPanel();
 		botonera.setLayout(new FlowLayout());
 		
@@ -43,18 +44,13 @@ public class VentanaJuego extends JFrame {
 		JButton fren = new JButton("Frena");
 		JButton gIzq = new JButton("Gira izq.");
 		JButton gDer = new JButton("Gira der.");
+		
 		botonera.add(acc);
 		botonera.add(fren);
 		botonera.add(gIzq);
 		botonera.add(gDer);
 		
-		ventana.add(botonera, BorderLayout.SOUTH);
-		ventana.setSize(750, 750);
-	
-//		JLabelCoche car2 = new JLabelCoche("data/coche.png");
-//		pPrincipal.add(car2);
-//		graficos.drawImage(car2.getImagePorqueJavaNoMeLaDa(), 50, 50, 100, 100, null);
-		ventana.setVisible(true);
+		v.add(botonera, BorderLayout.SOUTH);
 		
 		acc.addActionListener(new ActionListener() {
 			@Override
@@ -68,7 +64,9 @@ public class VentanaJuego extends JFrame {
 		fren.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				c.acelera(-5);
+				if (c.getMiVelocidad() >= 5) {
+					c.acelera(-5);
+				}
 				v.revalidate();
 
 			}
@@ -92,39 +90,75 @@ public class VentanaJuego extends JFrame {
 				}
 		});
 	}
-	
-//	public static void main(String[] args) {
-//		VentanaJuego v = new VentanaJuego();
-//		c = new CocheJuego(v);
-//		c.setPosX(150);
-//		c.setPosY(100);
-//		
-//	}
-//	
+
 
 	public static void main(String[] args) {
 		v = new VentanaJuego();
+		v.anadirBotones();
 		c = new Coche(v);
 		
-		Thread hiloCoche = new Thread() {
-
+		v.addWindowListener(new WindowAdapter() {
+			
 			@Override
-			public void run() {
-				v.repaint();
-				try {
-					 Thread.sleep(50);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+			public void windowClosing(WindowEvent e) {
+				fin_juego = true;
 			}
+			
+		});
 		
-	};
+		MiHilo hilo = new MiHilo(c);
+		hilo.start();
+
+		v.setVisible(true);
+
+}
 	
-		hiloCoche.start();
-		v.revalidate();
+}
+
+class MiHilo implements Runnable{
+	
+	private Coche car;
+	private boolean funcionando;
+	
+	public MiHilo(Coche c) {
+		this.car = c;
+	}
+	
+	private void update() {
+		car.mueve(0.4);
+		System.out.println(car);
 		
+		if(VentanaJuego.fin_juego) {
+			stop();
+		}
+		
+	}
 	
-}}
+	@Override
+	public void run() {
+		
+		while(funcionando) {
+			update();
+			
+			try {
+				Thread.sleep(40);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			
+		}
+		
+	}
+	
+	public void start() {
+		funcionando = true;
+		Thread juego = new Thread(this);
+		juego.start();
+	}
+	
+	public void stop() {
+		funcionando = false;
+	}
+}
 
 
