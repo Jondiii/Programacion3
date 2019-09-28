@@ -1,4 +1,4 @@
-package practica1;
+package practica0;
 
 import javax.swing.JFrame;
 
