@@ -10,8 +10,9 @@ public class CocheJuego extends Coche {
 	private JLabelCoche auto;
 	
 	public CocheJuego (JFrame v) {
-		auto = new JLabelCoche((int)getPosX(), (int)getPosY());
 		JPanel panelJuego = new JPanel();
+		panelJuego.setLayout(null);
+		auto = new JLabelCoche((int)getPosX(), (int)getPosY());
 		panelJuego.add(auto);
 		v.add(panelJuego, BorderLayout.CENTER);
 		v.revalidate();
