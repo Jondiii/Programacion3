@@ -9,13 +9,12 @@ import javax.swing.JLabel;
 
 public class JLabelCoche extends JLabel {
 	
-	private String imagen = "coche.png";
-	private ImageIcon icon;
-	private Coche car;
-	private int posX;
-	private int posY;
-	
-
+	private static String imagen = "coche.png";
+	/**
+	 * Dibuja escalado un coche en pantalla.
+	 * @param posX
+	 * @param posY
+	 */
 	public JLabelCoche(int posX, int posY) {
 
 		ImageIcon icon = new ImageIcon(getClass().getResource(imagen));

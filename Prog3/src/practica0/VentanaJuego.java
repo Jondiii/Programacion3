@@ -25,7 +25,9 @@ public class VentanaJuego extends JFrame {
 	public static boolean fin_juego;
 
 
-	
+	/**
+	 * Crea una VentanaJuego básica.
+	 */
 	public VentanaJuego() {
 	
 		setLayout(new BorderLayout());
@@ -97,7 +99,7 @@ public class VentanaJuego extends JFrame {
 		v.anadirBotones();
 		c = new Coche(v);
 		
-		v.addWindowListener(new WindowAdapter() {
+		v.addWindowListener(new WindowAdapter() { //Detecta cúando la ventana está cerrada. Se usa para terminar automáticamente el hilo.
 			
 			@Override
 			public void windowClosing(WindowEvent e) {
@@ -114,7 +116,10 @@ public class VentanaJuego extends JFrame {
 }
 	
 }
-
+/**
+ * Clase interna que crea un hilo. Desde que se activa, dibuja cada cierto tiempo el coche, simulando movimiento.
+ * Se detiene al cerrar la ventana.
+ */
 class MiHilo implements Runnable{
 	
 	private Coche car;
