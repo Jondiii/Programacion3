@@ -19,7 +19,7 @@ public class JLabelCoche extends JLabel {
 
 		ImageIcon icon = new ImageIcon(getClass().getResource(imagen));
 		ImageIcon icono2 = new ImageIcon(icon.getImage().getScaledInstance(100, 100, java.awt.Image.SCALE_DEFAULT));
-		setPreferredSize(new Dimension (100, 100));
+		setSize(new Dimension (100, 100));
 		setLocation((int) posX, (int)posY);
 		setIcon(icono2);
 		

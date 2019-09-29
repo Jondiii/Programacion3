@@ -29,8 +29,6 @@ public class Coche {
 		c = new CocheJuego(v);
 	}
 	
-	//TODO Faltan los pasos 5, 6, 8 y 9
-	
 	/** Cambia la velocidad actual del coche
 	 * @param aceleracion Incremento de la velocidad en pixels/segundo
 	 */
