@@ -3,6 +3,8 @@ package Clase.cap00.ejercicios;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Vector;
+
 import javax.swing.*;
 
 /** Programa un par de hilos según la especificación y comprueba que hay problemas.
@@ -16,8 +18,12 @@ public class ErrorAccesoConcurrente {
 	private static JTextArea taSalida = new JTextArea();
 	// TODO
 	// Probar con esta estructura y ver que hay problemas:
-	private static ArrayList<Long> listaNums = new ArrayList<>();
+//	private static ArrayList<Long> listaNums = new ArrayList<>();
 	// TODO Sustituirla por una estructura synchronized
+	
+	//Vector se protege contra el acceso concurrente, por lo que es algo más lento
+	//que arrayList.
+	private static Vector<Long> listaNums = new Vector<>(); 
 	
 	public static void main(String[] args) {
 		// Ventana de salida
@@ -36,10 +42,39 @@ public class ErrorAccesoConcurrente {
 		// println( "Añadido: " + listaNums.toString() );
 		// if (CONPAUSA>0) try { Thread.sleep(CONPAUSA); } catch (InterruptedException ex) {}
 		
+		Thread hilo1 = new Thread() {
+			public void run() {
+				int num = 0;
+				while(true) {
+					num ++;
+					listaNums.add((long)num);
+					println( "Añadido: " + listaNums.toString() );
+					if (CONPAUSA>0) try { Thread.sleep(CONPAUSA); } catch (InterruptedException ex) {}
+
+				}
+			}
+		};
+		
+		hilo1.start();
+		
 		// TODO Programa otro hilo que solo va quitando números por el principio
 		// Haz que el hilo visualice en la ventana lo que va haciendo y espere un poquito en cada iteración:
 		// println( "Borrado: " + listaNums.toString() );
 		// if (CONPAUSA>0) try { Thread.sleep(CONPAUSA); } catch (InterruptedException ex) {}
+		
+		Thread hilo2 = new Thread() {
+			public void run() {
+				while(true) {
+					if(!listaNums.isEmpty()){
+					long primero = listaNums.remove(0);
+					println( "Borrado: " + primero );
+					}
+					if (CONPAUSA>0) try { Thread.sleep(CONPAUSA); } catch (InterruptedException ex) {}
+				}
+			}
+		};
+		
+		hilo2.start();
 		
 		// A partir de ahora se tiene que ir viendo en pantalla una lista donde se añaden números por el final 
 		// y se quitan por el principio... salvo que haya algún problema de concurrencia y uno de los dos 
