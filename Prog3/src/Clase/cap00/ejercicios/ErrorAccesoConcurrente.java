@@ -18,11 +18,13 @@ public class ErrorAccesoConcurrente {
 	private static JTextArea taSalida = new JTextArea();
 	// TODO
 	// Probar con esta estructura y ver que hay problemas:
-//	private static ArrayList<Long> listaNums = new ArrayList<>();
+	//private static ArrayList<Long> listaNums = new ArrayList<>();
 	// TODO Sustituirla por una estructura synchronized
 	
 	//Vector se protege contra el acceso concurrente, por lo que es algo más lento
-	//que arrayList.
+	//que arrayList. El vector está synchronized.
+	//Synchronized: si el método está siendo ejecutado por un hilo, no podrá
+	//ser ejecutado a la vez por otro, tendrá que esperar.
 	private static Vector<Long> listaNums = new Vector<>(); 
 	
 	public static void main(String[] args) {
