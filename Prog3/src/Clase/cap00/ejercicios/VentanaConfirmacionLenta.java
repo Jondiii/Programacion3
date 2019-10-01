@@ -62,7 +62,7 @@ public class VentanaConfirmacionLenta {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				//Al llegar a aquí, se crea un hilo nuevo que se encarga de gestionar el procesoConfirmar, y deja que 
-				//la ventana haga otras cosas de mientras
+				//la ventana haga otras cosas de mientras. TODO TODO
 				
 				bConf.setEnabled(false); //Se desactiva el botón
 				
@@ -77,10 +77,10 @@ public class VentanaConfirmacionLenta {
 				};
 				
 				//El start habre un nuevo hilo (a parte del que ya había antes, es decir, el main) y ejecuta de manera independiente
-				//el hilo.
+				//el hilo. TODO TODO
 				hilo.setDaemon(true); //el hilo se detiene solo al cerrar la ventana 
 				hilo.start();
-				//bConf = null; //Si hiciéramos esto sin ser atributo no funciona (tiene que ser final) - Opción 1
+				//bConf = null; //Si hiciéramos esto sin ser atributo no funciona (tiene que ser final) - Opción 1 TODO TODO
 			}
 		});
 	}
@@ -90,7 +90,7 @@ public class VentanaConfirmacionLenta {
 		System.out.println(mensaje);
 		for (Thread t : conjuntoHilos) {
 			System.out.println(" " + t.getName() + " " + t.isDaemon()); //Hilo daemon: no acaba solo. Cuando el programa acaba,los
-																		//daemon siguen, y java acaba con ellos.
+																		//daemon siguen, y java acaba con ellos. TODO TODO
 		}
 	}
 }

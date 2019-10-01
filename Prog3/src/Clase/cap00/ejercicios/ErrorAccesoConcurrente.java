@@ -16,11 +16,12 @@ public class ErrorAccesoConcurrente {
 	private static long CONPAUSA = 50; // msgs de pausa en los hilos
 	
 	private static JTextArea taSalida = new JTextArea();
-	// TODO
+	//
 	// Probar con esta estructura y ver que hay problemas:
 	//private static ArrayList<Long> listaNums = new ArrayList<>();
-	// TODO Sustituirla por una estructura synchronized
+	// Sustituirla por una estructura synchronized
 	
+	//TODO TODO
 	//Vector se protege contra el acceso concurrente, por lo que es algo más lento
 	//que arrayList. El vector está synchronized.
 	//Synchronized: si el método está siendo ejecutado por un hilo, no podrá
@@ -39,7 +40,7 @@ public class ErrorAccesoConcurrente {
 		// Empezamos con la lista [0]
 		listaNums.add( 0L ); 
 		
-		// TODO Programa un hilo que solo va añadiendo números incrementales a la lista por el final
+		// Programa un hilo que solo va añadiendo números incrementales a la lista por el final
 		// Haz que el hilo visualice en la ventana lo que va haciendo y espere un poquito en cada iteración:
 		// println( "Añadido: " + listaNums.toString() );
 		// if (CONPAUSA>0) try { Thread.sleep(CONPAUSA); } catch (InterruptedException ex) {}
@@ -59,7 +60,7 @@ public class ErrorAccesoConcurrente {
 		
 		hilo1.start();
 		
-		// TODO Programa otro hilo que solo va quitando números por el principio
+		// Programa otro hilo que solo va quitando números por el principio
 		// Haz que el hilo visualice en la ventana lo que va haciendo y espere un poquito en cada iteración:
 		// println( "Borrado: " + listaNums.toString() );
 		// if (CONPAUSA>0) try { Thread.sleep(CONPAUSA); } catch (InterruptedException ex) {}
