@@ -2,6 +2,7 @@ package Clase.cap00.ejercicios;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import javax.swing.*;
@@ -18,6 +19,7 @@ public class VentanaQuijote extends JFrame {
 
 	private JTextArea taTexto;
 	private JScrollPane spTexto;
+	private Thread hilo;
 	
 	public VentanaQuijote() {
 		setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
@@ -47,12 +49,49 @@ public class VentanaQuijote extends JFrame {
 		});
 	}
 	
+	private ArrayList<Thread> hilosActivos = new ArrayList<>() ;
+	
 	private void muevePagina( int pixelsVertical ) {
 		// TODO Cambiar este comportamiento de acuerdo a los comentarios de la cabecera de clase
-		JScrollBar bVertical = spTexto.getVerticalScrollBar();
-		System.out.println( "Moviendo texto de " + bVertical.getValue() + " a " + (bVertical.getValue()+pixelsVertical) );
-		bVertical.setValue( bVertical.getValue() + pixelsVertical );
+	
+		hilo = new Thread(new Runnable() { //Hacer esto así o hacer una clase nueva que herede de thread da el mismo resultado.
+			public void run() {
+				JScrollBar bVertical = spTexto.getVerticalScrollBar();
+				System.out.println( "Moviendo texto de " + bVertical.getValue() + " a " + (bVertical.getValue()+pixelsVertical) );
+				//bVertical.setValue( bVertical.getValue() + pixelsVertical ); //(Código original)
+				
+				if(pixelsVertical>0) {
+					for (int i = 0; i < pixelsVertical; i++) {
+						bVertical.setValue( bVertical.getValue() + 1 ); //Sumo 1 512 veces.
+						try {Thread.sleep(10);} catch (InterruptedException e) {}
+
+					}
+				} else {
+					for (int i = 0; i < Math.abs(pixelsVertical); i++) {
+					bVertical.setValue( bVertical.getValue() - 1 ); //Resto 1 512 veces.
+					try {Thread.sleep(10);} catch (InterruptedException e) {}
+
+					}
+				}
+//				
+//				for (int i = 0; i < pixelsVertical; i++) {
+//					if (pixelsVertical > 0) {
+//						bVertical.setValue( bVertical.getValue() + 1 ); //Sumo 1 512 veces.
+//					}
+//					else  {
+//						bVertical.setValue( bVertical.getValue() - 1 ); 
+//						}
+//				} //Lo he hecho yo y por eso no funciona
+				
+				
+			}
+			
+		});
+		
+		hilo.start();
+		
 	}
+	
 	
 	private void cargaQuijote() {
 		try {
