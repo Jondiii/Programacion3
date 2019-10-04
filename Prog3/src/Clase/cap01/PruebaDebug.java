@@ -1,4 +1,4 @@
-package cap01;
+package Clase.cap01;
 
 /** Clase de prueba para depurar con Eclipse (Debug = F11)
  * @author andoni.eguiluz @ ingenieria.deusto.es

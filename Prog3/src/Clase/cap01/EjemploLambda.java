@@ -1,4 +1,4 @@
-package cap01;
+package Clase.cap01;
 
 import javax.swing.JButton;
 import javax.swing.SwingUtilities;

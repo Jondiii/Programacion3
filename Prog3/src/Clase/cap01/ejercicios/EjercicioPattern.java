@@ -1,4 +1,4 @@
-package cap01.ejercicios;
+package Clase.cap01.ejercicios;
 
 import java.awt.*;
 import java.awt.event.*;

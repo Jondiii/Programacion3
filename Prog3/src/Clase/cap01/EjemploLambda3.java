@@ -1,4 +1,4 @@
-package cap01;
+package Clase.cap01;
 
 import java.util.function.Consumer;
 import java.util.function.Function;

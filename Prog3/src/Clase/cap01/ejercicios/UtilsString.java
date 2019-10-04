@@ -1,4 +1,4 @@
-package cap01.ejercicios;
+package Clase.cap01.ejercicios;
 
 /** Utilidades de Strings de ejemplo
  * Clase preparada para hacer con ella pruebas unitarias con JUnit
