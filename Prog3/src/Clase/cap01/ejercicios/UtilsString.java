@@ -34,7 +34,7 @@ public class UtilsString {
 	
 	public static void main(String[] args) {
 		// Prueba convencional (no estructurada, no exhaustiva, no automatizable)
-		// Versión 1
+		// Versión 1 TODO TODO Comprobar esto varias veces hace que se pierda mucho tiempo.
 //		String prueba = "Hola\nEsto es un string con tres líneas\ny\tvarios\ttabuladores.";
 //		System.out.println( prueba );
 //		System.out.println( quitarTabsYSaltosLinea( prueba ));
@@ -43,8 +43,8 @@ public class UtilsString {
 //		System.out.println( wrapString( quitarTabsYSaltosLinea(prueba), 10 ) );
 		
 		// Versión 2
-		String prueba = "Hola\nEsto es un string con tres líneas\ny\tvarios\ttabuladores.";
-		String prueba2 = "Hola#Esto es un string con tres líneas#y|varios|tabuladores.";
+		String prueba = "Hola\nEsto es un string con tres líneas\ny\tvarios\ttabuladores."; //Lo que se introduce
+		String prueba2 = "Hola#Esto es un string con tres líneas#y|varios|tabuladores."; //Lo que se imprime por pantalla
 		// System.out.println( prueba );
 		// System.out.println( quitarTabsYSaltosLinea( prueba ));
 		if (prueba2.equals(quitarTabsYSaltosLinea(prueba))) {
