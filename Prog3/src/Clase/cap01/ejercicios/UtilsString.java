@@ -10,11 +10,12 @@ public class UtilsString {
 	private static void a() { }
 	static void b() { }
 	/** Devuelve cualquier string sin saltos de línea ni tabuladores (para poder exportarlo de forma tabular sin conflicto)
-	 * @param s	String con cualquier contenido
+	 * @param s	String con cualquier contenido. No puede ser null.
 	 * @return	Mismo string sustituyendo \t con el carácter | y \n con el carácter #; Devuelve null si s es null.
 	 */
 	public static String quitarTabsYSaltosLinea( String s ) {
-		return s.replaceAll( "\n", "|" ).replaceAll( "\t", "|" );
+		if (s == null) return null;
+		return s.replaceAll( "\n", "#" ).replaceAll( "\t", "|" );
 	}
 	
 	/** Devuelve cualquier string truncado al número de caracteres indicado, con puntos suspensivos al final si se ha truncado
