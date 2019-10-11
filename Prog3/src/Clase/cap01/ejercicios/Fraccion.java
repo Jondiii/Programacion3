@@ -27,7 +27,12 @@ public class Fraccion {
 	 * @param den	Denominador
 	 */
 	public Fraccion( int num, int den ) {
-		// TODO
+		this.num = num;
+		this.den = den;
+		this.num /= mcd(num, den);
+		this.den /= mcd(num, den);
+		
+		//Excepción al construir fraccion con den = 0. Igual con la división de fracciones.
 	}
 	
 	/** Devuelve el numerador de una fracción
@@ -46,7 +51,14 @@ public class Fraccion {
 	 * @return	Fracción resultado de la suma de las fracciones 1 y 2
 	 */
 	public static Fraccion suma( Fraccion f1, Fraccion f2 ) {
-		// TODO
+		if (f1.getDen() == f2.getDen()) {
+			int sumaNum = f1.getNum() + f2.getNum();
+			if (sumaNum / f1.getDen() != 0) {
+				return new Fraccion(sumaNum, f1.getDen());
+			} else {
+				
+			}
+		}
 		return null;
 	}
 	
@@ -63,11 +75,12 @@ public class Fraccion {
 	/** Multiplica dos fracciones
 	 * @param f1	Fracción 1
 	 * @param f2	Fracción 2
-	 * @return	Fracción resultado de la resta f1 - f2
+	 * @return	Fracción resultado de la multiplicación f1 * f2
 	 */
 	public static Fraccion multiplica( Fraccion f1, Fraccion f2 ) {
-		// TODO
-		return null;
+		int multNum = f1.getNum() * f2.getNum();
+		int multDen = f1.getDen() * f2.getNum();
+		return new Fraccion(multNum, multDen);
 	}
 	
 	/** Divide dos fracciones
@@ -76,14 +89,25 @@ public class Fraccion {
 	 * @return	Fracción resultado de la resta f1 - f2
 	 */
 	public static Fraccion divide( Fraccion f1, Fraccion f2 ) {
-		// TODO
-		return null;
+		int divNum = f1.getNum() * f2.getDen();
+		int divDen = f1.getNum() * f2.getNum();
+		return new Fraccion(divNum, divDen);
 	}
 	
 	@Override
 	public String toString() {
 		// TODO
-		return null;
+		return num + "/" + den;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if(obj instanceof Fraccion) {
+			Fraccion fracTemp = (Fraccion)obj;
+			return num == fracTemp.getNum() && den == fracTemp.getDen();
+		} else {
+			return false;
+		}
 	}
 	
 	// Utilidad: Devuelve el máximo común divisor de 2 números positivos
