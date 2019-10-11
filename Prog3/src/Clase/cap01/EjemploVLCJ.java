@@ -1,8 +1,6 @@
 package Clase.cap01;
 
-import java.awt.BorderLayout;
-
-import java.awt.Dimension;
+import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
