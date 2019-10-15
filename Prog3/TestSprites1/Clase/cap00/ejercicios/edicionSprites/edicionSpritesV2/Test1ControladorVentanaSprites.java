@@ -14,12 +14,13 @@ public class Test1ControladorVentanaSprites {
 	private VentanaEdicionSprites miVentana;
 	
 	@Before
-	void init() {
+	public void init() {
 		miVentana = new VentanaEdicionSprites();
 	}
 
 	@Test
-	void cargaFicherosGraficosOrdenados(File dir) {
+	public void cargaFicherosGraficosOrdenados() {
+		File dir = null; //No sé si esto hay que hacerse así, pero bueno.
 		miVentana.mSprites.clear();
 		if (dir==null || !dir.exists()) return;
 		File[] fics = dir.listFiles(); // Ficheros de la carpeta
