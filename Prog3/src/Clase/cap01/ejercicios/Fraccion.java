@@ -87,6 +87,7 @@ public class Fraccion {
 		return new Fraccion( f1.getNum()*f2.getNum(), f1.getDen()*f2.getDen() );
 	}
 	
+	
 	/** Divide dos fracciones
 	 * @param f1	Fracción 1
 	 * @param f2	Fracción 2

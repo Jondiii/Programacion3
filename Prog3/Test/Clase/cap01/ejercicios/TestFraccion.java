@@ -17,6 +17,10 @@ public class TestFraccion {
 	
 	/**
 	 * Se pueden iniciar así variables que queremos que se usen siempre en las pruebas.
+	 * 
+	 * TODO TODO
+	 * 
+	 * SE PUEDEN HACER COMPARACIONES CON VERSIONES ANTERIORES MEDIANTE CLICK DERECHO EN LA CLASE, COMPARE WITH, COMMIT
 	 */
 	@Before
 	public void init() {
@@ -39,7 +43,10 @@ public class TestFraccion {
 		System.out.println(  Fraccion.multiplica(f,f2) ); // 1/3 * (-1/5) = -1/15
 		System.out.println(  Fraccion.divide(f,f2) ); // 1/3 / (-1/5) = -5/3
 	}
-		
+		/**
+		 * Recomendación: hacer test individuales para cada cosa que se quiera evaluar.
+		 * TODO TODO
+		 */
 		@Test
 		public void testSimplificacion() {
 			assertEquals( 1.0/3, 1.0*f.getNum()/f.getDen(), 0.00000000001 );  // Prueba el valor numérico
@@ -49,7 +56,7 @@ public class TestFraccion {
 		@Test
 		public void testSigno() {
 			assertEquals( -1, f2.getNum() );
-			assertEquals( 5, f2.getDen() );
+			assertEquals( 5, f2.getDen() ); //Se recomienda hacer un método equals en todas las clases, especificando qué se tiene que cumplir para que ambos objetos sean iguales. TODO TODO
 		}
 		
 		@Test
@@ -80,16 +87,22 @@ public class TestFraccion {
 			assertEquals( new Fraccion( 1, 3 ), Fraccion.resta(f,f3) ); // 1/3 - 0/1 = 1/3
 			assertEquals( new Fraccion( 0, 1 ), Fraccion.multiplica(f,f3) ); // 1/3 * 0/1 = 0/1
 			try {
-				Fraccion.divide(f,f3); // Error! división por 0
+				Fraccion.divide(f,f3); // Error! división por 0 ///Si llega hasta aquí significa que ha dividido correctamente entre 0, por lo que ponemos el fail();
 				fail();
 			} catch (ArithmeticException e) {
 				// Test correcto
 			}
 			try {
 				Fraccion f4 = new Fraccion( 6, 0 ); // Error! Fracción irracional
+				//Fraccion f5 = new Fraccion( 0, 0 ); // Si lo ponemoss así solo se está probando la primera. Al dar excepcion en la primera, nunca
+													// se llega a esta segunda, por lo que no sabríamos si está bien o no.
 				fail();
 			} catch (ArithmeticException e) {
 				// Test correcto
+			} catch (Exception e) { //Java primero mira el primer catch y luego el siguiente.
+									//Si pusiesemos exception primero, nunca llegaría a la segunda excepción, ya que todas
+									//las excepciones heredan de la clase Exception. TODO TODO
+				fail();
 			}
 			try {
 				Fraccion f5 = new Fraccion( 0, 0 ); // Error! Fracción más irracional
@@ -105,10 +118,10 @@ public class TestFraccion {
 		@Test
 		public void testRepetitivo() {
 			int numTests = 0;  // Solo por curiosidad para ver los tests que se hacen
-			for (int num1=1; num1<=10; num1++) {
-				for (int den1=1; den1<=10; den1++) {
-					for (int num2=1; num2<=10; num2++) {
-						for (int den2=1; den2<=10; den2++) {
+			for (int num1=1; num1<=100; num1++) {
+				for (int den1=1; den1<=100; den1++) {
+					for (int num2=1; num2<=100; num2++) {
+						for (int den2=1; den2<=100; den2++) {
 							// todas las combinaciones num1/den1 con num2/den2
 							Fraccion fr1 = new Fraccion( num1, den1 );
 							Fraccion fr2 = new Fraccion( num2, den2 );
