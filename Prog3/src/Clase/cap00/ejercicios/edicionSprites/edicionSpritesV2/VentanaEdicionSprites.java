@@ -16,6 +16,7 @@ import javax.swing.event.ListSelectionListener;
 import java.io.*;
 //Import para Java Collections y otras utilidades
 import java.util.*;
+import java.util.logging.Level;
 
 
 /** Ejercicio de creación de ventanas complejas (versión 1 - resuelto solo lo visual)
@@ -399,6 +400,7 @@ public class VentanaEdicionSprites extends JFrame {  // Vamos a definir una clas
 			@Override
 			public void focusLost(FocusEvent e) {
 				miControlador.textFieldFocusLost( slVelocidad, tfVelocidad, slVelocidad.getMinimum(), slVelocidad.getMaximum() );
+				ControladorVentanaSprites.log.log(Level.INFO, "Velocidad cambiada a: " + tfVelocidad.getText() + "px/sg");
 			}
 		});
 		slAngulo.addChangeListener( new ChangeListener() {

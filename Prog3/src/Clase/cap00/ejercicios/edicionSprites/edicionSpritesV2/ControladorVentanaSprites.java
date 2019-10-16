@@ -4,6 +4,8 @@ import java.awt.*;
 import java.io.*;
 import java.net.*;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.*;
 
@@ -14,6 +16,8 @@ public class ControladorVentanaSprites {
 
 	// Ventana asociada
 	private VentanaEdicionSprites miVentana;  // Ventana controlada
+	
+	static Logger log;
 	
 	// Atributos para gestión de los gráficos
 	JLabelGraficoAjustado lPreview = null;
@@ -117,6 +121,7 @@ public class ControladorVentanaSprites {
 			cargaFicherosGraficosOrdenados( dir );
 			// Carga la lista de ficheros lSprites (1) a través de su modelo
 			miVentana.lCarpetaSel.setText( dir.getAbsolutePath() );
+			log.log(Level.INFO, "Abierto el fichero: " + dir.getAbsolutePath());
 			// Vacía la lista de secuencia
 			if (enMovimiento) {
 				paraAnimacion();
@@ -237,6 +242,7 @@ public class ControladorVentanaSprites {
 				JOptionPane.showMessageDialog( miVentana, "Valor incorrecto - debe estar entre " + min + " y " + max, "Error en valor", JOptionPane.ERROR_MESSAGE );
 				tf.setText( "" + min ); // Lo ponemos a valor por defecto (mínimo válido)
 				tf.requestFocus(); // Y volvemos a forzar el foco en ese cuadro
+				ControladorVentanaSprites.log.log(Level.WARNING, "Error al introducir datos. El valor debe estar entre " + min + " y " + max);//Paso 3
 			}
 		} else {
 			try {
@@ -246,6 +252,8 @@ public class ControladorVentanaSprites {
 			} catch (Exception e) {  
 				// Si no es un valor correcto (no entero o fuera de rango), se anula con feedback
 				JOptionPane.showMessageDialog( miVentana, "Valor incorrecto - debe estar entre " + (min*multiplicador[0]) + " y " + (max*multiplicador[0]), "Error en valor", JOptionPane.ERROR_MESSAGE );
+				ControladorVentanaSprites.log.log(Level.WARNING, "Error al introducir datos. El valor debe estar entre " + (min*multiplicador[0]) + " y " + (max*multiplicador[0]));
+				//Paso 3
 				tf.setText( "" + min ); // Lo ponemos a valor por defecto (mínimo válido)
 				tf.requestFocus(); // Y volvemos a forzar el foco en ese cuadro
 			}
@@ -314,6 +322,7 @@ public class ControladorVentanaSprites {
 			miVentana.tfAncho.setText( "200" );
 			miVentana.tfAlto.setText( "200" );
 			JOptionPane.showMessageDialog( miVentana, "Valor de tamaño incorrecto - debe ser positivo", "Error", JOptionPane.ERROR_MESSAGE );
+			ControladorVentanaSprites.log.log(Level.WARNING, "Valor de tamaño incorrecto - debe ser positivo");//Paso 3
 		}
 	}
 	
@@ -345,6 +354,7 @@ public class ControladorVentanaSprites {
 		} catch (NumberFormatException e) {
 			// Si no es un valor correcto, se anula con feedback
 			JOptionPane.showMessageDialog( miVentana, "Valor incorrecto - debe ser entero", "Error en valor", JOptionPane.ERROR_MESSAGE );
+			ControladorVentanaSprites.log.log(Level.WARNING, "Valor de tamaño incorrecto - debe ser entero"); //Paso 3
 			miVentana.tfoffsetX.setText( "0" );
 			miVentana.tfoffsetX.requestFocus();
 		}
@@ -364,6 +374,7 @@ public class ControladorVentanaSprites {
 		} catch (NumberFormatException e) {
 			// Si no es un valor correcto, se anula con feedback
 			JOptionPane.showMessageDialog( miVentana, "Valor incorrecto - debe ser entero", "Error en valor", JOptionPane.ERROR_MESSAGE );
+			ControladorVentanaSprites.log.log(Level.WARNING, "Valor de tamaño incorrecto - debe ser entero"); //Paso 3
 			miVentana.tfoffsetY.setText( "0" );
 			miVentana.tfoffsetY.requestFocus();
 		}
@@ -387,6 +398,7 @@ public class ControladorVentanaSprites {
 		} catch (Exception e) {
 			// Si no es un valor correcto, se anula con feedback
 			JOptionPane.showMessageDialog( miVentana, "Valor incorrecto - debe ser positivo", "Error en valor", JOptionPane.ERROR_MESSAGE );
+			ControladorVentanaSprites.log.log(Level.WARNING, "Valor de tamaño incorrecto - debe ser positivo"); //Paso 3
 			miVentana.tfDuracion.setText( "100" );
 			miVentana.tfDuracion.requestFocus();
 		}
@@ -511,11 +523,18 @@ public class ControladorVentanaSprites {
 		ponFotograma();
 		lAnim.setVisible( true );  // Visualiza el gráfico
 		milisFotogramaActual = datosSecuencia.get( fotogramaSecuencia ).duracionMsegs;
-		posX = Integer.parseInt( miVentana.tfOrigenX.getText() );
-		posY = Integer.parseInt( miVentana.tfOrigenY.getText() );
+		try { //Paso 3
+			posX = Integer.parseInt( miVentana.tfOrigenX.getText() );
+			posY = Integer.parseInt( miVentana.tfOrigenY.getText() );
+			gravedad = Double.parseDouble( miVentana.tfGravedad.getText() );
+		} catch (NumberFormatException e) {
+			log.log(Level.WARNING, "Error, las posiciones X e Y, así como la gravedad, tienen que ser números enteros.");
+			JOptionPane.showMessageDialog( miVentana, "Las posiciones X e Y, así como la gravedad, tienen que ser números enteros.", "Error en valor", JOptionPane.ERROR_MESSAGE );
+		}
+		
 		vel = Integer.parseInt( miVentana.tfVelocidad.getText() );
 		angVel = -Integer.parseInt( miVentana.tfAngulo.getText() )/180.0*Math.PI;  // Cambiado de signo porque en pantalla la Y baja en vez de subir
-		gravedad = Double.parseDouble( miVentana.tfGravedad.getText() );
+		
 		rotPorFotograma = Integer.parseInt( miVentana.tfRotacionAnim.getText() )/180.0*Math.PI/1000.0*MILIS_POR_FRAME;
 		zoomPorFotograma =
 			Math.pow( Integer.parseInt( miVentana.tfZoomAnim.getText() )/100.0,

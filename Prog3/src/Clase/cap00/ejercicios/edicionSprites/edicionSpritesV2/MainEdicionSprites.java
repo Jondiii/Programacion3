@@ -1,5 +1,11 @@
 package Clase.cap00.ejercicios.edicionSprites.edicionSpritesV2;
 
+import java.util.ResourceBundle.Control;
+import java.util.logging.FileHandler;
+import java.util.logging.Handler;
+import java.util.logging.LogRecord;
+import java.util.logging.Logger;
+
 import javax.swing.UIManager;  // Para usar look and feels distintos al estándar
 
 /** Clase principal de edición de sprites<br/>
@@ -18,6 +24,12 @@ public class MainEdicionSprites {
 		} catch (Exception e) { } // Si Nimbus no está disponible, se usa el l&f por defecto
 		VentanaEdicionSprites v = new VentanaEdicionSprites();
 		
+		
+		try {
+			ControladorVentanaSprites.log = Logger.getLogger("log_Ventana_Edicion");
+			ControladorVentanaSprites.log.addHandler(new FileHandler("edicionSprites.xml", true)); //True el append, es decir, si está ya creado, añade la info al final de lo que hay.
+		} catch (Exception e) {
+		}
 		
 		// TODO Sentencias de prueba
 		// Estas tres líneas inicializan la secuencia con tres gráficos de ejemplos (sustituir los paths por los gráficos que se deseen)
