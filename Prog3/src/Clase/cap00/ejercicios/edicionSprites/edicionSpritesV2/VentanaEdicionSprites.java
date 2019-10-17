@@ -344,13 +344,10 @@ public class VentanaEdicionSprites extends JFrame {  // Vamos a definir una clas
 		setLocationRelativeTo( null ); // Posición relativa al escritorio (centrada en el escritorio)
 		
 		// Inicialización de los gestores de eventos (usando el controlador)
-		// Botón de búsqueda
-		bBuscar.addActionListener( new ActionListener( ) {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				miControlador.clickBBuscar();
-			}
-		});
+		// Botón de búsqueda		
+		bBuscar.addActionListener(
+				(e) -> {miControlador.clickBBuscar();} //Paso 5
+			);
 
 		// Doble click en lista (1)
 		lSprites.addMouseListener( new MouseAdapter() {
@@ -363,26 +360,18 @@ public class VentanaEdicionSprites extends JFrame {  // Vamos a definir una clas
 		});
 		
 		// Click en botones de subir/bajar en lista
-		bArriba.addActionListener( new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				miControlador.clickBSubir();
-			}
-		} );
-		bAbajo.addActionListener( new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				miControlador.clickBBajar();
-			}
-		} );
+		bArriba.addActionListener( 
+				(e) -> { miControlador.clickBSubir();}
+				); //Paso 5
+		
+		bAbajo.addActionListener( 
+				(e) -> { miControlador.clickBBajar();}
+				); //Paso 5
 		
 		// Slider y textfield de rotación
-		slRotacionAnim.addChangeListener( new ChangeListener() {
-			@Override
-			public void stateChanged(ChangeEvent e) {
-				miControlador.sliderStateChanged( slRotacionAnim, tfRotacionAnim );
-			}
-		});
+		slRotacionAnim.addChangeListener( 
+				(e) -> { miControlador.sliderStateChanged( slRotacionAnim, tfRotacionAnim );}
+		); //Paso 5
 		tfRotacionAnim.addFocusListener( new FocusAdapter() {
 			@Override
 			public void focusLost(FocusEvent e) {
@@ -390,12 +379,9 @@ public class VentanaEdicionSprites extends JFrame {  // Vamos a definir una clas
 			}
 		});
 		// Resto de sliders y textfields asociados (mismo criterio, mismos métodos)
-		slVelocidad.addChangeListener( new ChangeListener() {
-			@Override
-			public void stateChanged(ChangeEvent e) {
-				miControlador.sliderStateChanged( slVelocidad, tfVelocidad );
-			}
-		});
+		slVelocidad.addChangeListener( //Paso 5
+				(e) -> {miControlador.sliderStateChanged( slVelocidad, tfVelocidad );			}
+		);
 		tfVelocidad.addFocusListener( new FocusAdapter() {
 			@Override
 			public void focusLost(FocusEvent e) {
@@ -403,36 +389,28 @@ public class VentanaEdicionSprites extends JFrame {  // Vamos a definir una clas
 				ControladorVentanaSprites.log.log(Level.INFO, "Velocidad cambiada a: " + tfVelocidad.getText() + "px/sg");
 			}
 		});
-		slAngulo.addChangeListener( new ChangeListener() {
-			@Override
-			public void stateChanged(ChangeEvent e) {
-				miControlador.sliderStateChanged( slAngulo, tfAngulo );
-			}
-		});
+		slAngulo.addChangeListener( //Paso 5
+				(e) -> {miControlador.sliderStateChanged( slAngulo, tfAngulo );}
+		);
 		tfAngulo.addFocusListener( new FocusAdapter() {
 			@Override
 			public void focusLost(FocusEvent e) {
 				miControlador.textFieldFocusLost( slAngulo, tfAngulo, slAngulo.getMinimum(), slAngulo.getMaximum() );
 			}
 		});
-		slGravedad.addChangeListener( new ChangeListener() {
-			@Override
-			public void stateChanged(ChangeEvent e) {
-				miControlador.sliderStateChanged( slGravedad, tfGravedad, 0.1 );  // Con multiplicador (caso especial de double)
+		slGravedad.addChangeListener( //Paso 5
+				(e) ->  {miControlador.sliderStateChanged( slGravedad, tfGravedad, 0.1 );  // Con multiplicador (caso especial de double)
 			}
-		});
+		);
 		tfGravedad.addFocusListener( new FocusAdapter() {
 			@Override
 			public void focusLost(FocusEvent e) {
 				miControlador.textFieldFocusLost( slGravedad, tfGravedad, slGravedad.getMinimum(), slGravedad.getMaximum(), 0.1 );  // Con multiplicador
 			}
 		});
-		slZoomAnim.addChangeListener( new ChangeListener() {
-			@Override
-			public void stateChanged(ChangeEvent e) {
-				miControlador.sliderStateChanged( slZoomAnim, tfZoomAnim );
-			}
-		});
+		slZoomAnim.addChangeListener(//Paso 5
+				(e) ->  {miControlador.sliderStateChanged( slZoomAnim, tfZoomAnim );}
+		);
 		tfZoomAnim.addFocusListener( new FocusAdapter() {
 			@Override
 			public void focusLost(FocusEvent e) {
@@ -441,13 +419,11 @@ public class VentanaEdicionSprites extends JFrame {  // Vamos a definir una clas
 		});
 		
 		// Selección de gráfico en la lista de secuencia
-		lSecuencia.addListSelectionListener( new ListSelectionListener() {
-			@Override
-			public void valueChanged(ListSelectionEvent e) {
+		lSecuencia.addListSelectionListener(//Paso 5
+				(e) -> {
 				if (!e.getValueIsAdjusting()) {  // isAdjusting es un valor intermedio en eventos consecutivos - esperamos a que ya esté ajustada la selección
 					miControlador.lSecuenciaSelectionChanged();
 				}
-			}
 		});
 		
 		// Cambio de tamaño de panel de preview
@@ -471,18 +447,17 @@ public class VentanaEdicionSprites extends JFrame {  // Vamos a definir una clas
 		});
 		
 		// Sliders de zoom y rotación de secuencia
-		slZoom.addChangeListener( new ChangeListener() {
-			@Override
-			public void stateChanged(ChangeEvent e) {
+		slZoom.addChangeListener( //Paso 5
+				(e) -> {
 				miControlador.slZoomStateChanged();
 			}
-		});
-		slRotacion.addChangeListener( new ChangeListener() {
-			@Override
-			public void stateChanged(ChangeEvent e) {
+		);
+		
+		slRotacion.addChangeListener( //Paso 5
+				(e) -> {
 				miControlador.slRotacionStateChanged();
 			}
-		});
+		);
 		
 		// Cuadros de texto asociados a secuencia
 		tfoffsetX.addFocusListener( new FocusAdapter() {
@@ -502,23 +477,19 @@ public class VentanaEdicionSprites extends JFrame {  // Vamos a definir una clas
 		});
 		
 		// Botones de animación
-		bSecuencia.addActionListener( new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
+		bSecuencia.addActionListener(//Paso 5
+				(e) -> {
 				miControlador.clickBPlaySecuencia();
 			}
-		});
-		bAnim.addActionListener( new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
+		);
+		bAnim.addActionListener( //Paso 5
+				(e) -> {
 				miControlador.clickBPlayAnim();
 			}
-		});
-		bSecuenciaAnim.addActionListener( new ActionListener() {		
-			@Override
-			public void actionPerformed(ActionEvent e) {
+		);
+		bSecuenciaAnim.addActionListener( //Paso 5
+				(e) -> {
 				miControlador.clickBPlayAnimSecuencia();
-			}
 		});
 		
 		// TODO Gestión de ficheros (botones de nuevo / carga / guardado)

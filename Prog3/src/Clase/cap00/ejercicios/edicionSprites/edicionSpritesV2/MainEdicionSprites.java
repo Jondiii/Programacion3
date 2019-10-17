@@ -1,5 +1,6 @@
 package Clase.cap00.ejercicios.edicionSprites.edicionSpritesV2;
 
+import java.util.Properties;
 import java.util.ResourceBundle.Control;
 import java.util.logging.FileHandler;
 import java.util.logging.Handler;
@@ -15,6 +16,8 @@ import javax.swing.UIManager;  // Para usar look and feels distintos al estánda
  */
 public class MainEdicionSprites {
 
+	static Properties prf = new Properties();
+
 	/** Método principal, crea una ventana de edición y la lanza 
 	 * @param args
 	 */
@@ -25,9 +28,14 @@ public class MainEdicionSprites {
 		VentanaEdicionSprites v = new VentanaEdicionSprites();
 		
 		
-		try {
-			ControladorVentanaSprites.log = Logger.getLogger("log_Ventana_Edicion");
-			ControladorVentanaSprites.log.addHandler(new FileHandler("edicionSprites.xml", true)); //True el append, es decir, si está ya creado, añade la info al final de lo que hay.
+//		try { //Lo pongo con comentario porque no quiero que se esté creando el ficherito todo el rato. PASO 3
+//			ControladorVentanaSprites.log = Logger.getLogger("log_Ventana_Edicion");
+//			ControladorVentanaSprites.log.addHandler(new FileHandler("edicionSprites.xml", true)); //True el append, es decir, si está ya creado, añade la info al final de lo que hay.
+//		} catch (Exception e) {
+//		}
+		
+		try {//PASO 1 VAS POR AQUI JON
+			prf.loadFromXML(new java.io.FileInputStream( "propertiesPractica1.xml" ));
 		} catch (Exception e) {
 		}
 		

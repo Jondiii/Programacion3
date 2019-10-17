@@ -4,6 +4,7 @@ import java.awt.*;
 import java.io.*;
 import java.net.*;
 import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -491,7 +492,7 @@ public class ControladorVentanaSprites {
 						if (enSecuencia) {
 							milisFotogramaActual -= tiempoReal;  // Decrementa milis de la secuencia
 							if (milisFotogramaActual<=0) {  // Pasa al siguiente fotograma
-								fotogramaSecuencia++;
+								fotogramaSecuencia += ThreadLocalRandom.current().nextInt(0, 30 + 1); //Paso 7
 								if (fotogramaSecuencia>=datosSecuencia.size()) {
 									if (miVentana.cbCiclo.isSelected()) // Si hay ciclo vuelve a empezar
 										fotogramaSecuencia = 0;
