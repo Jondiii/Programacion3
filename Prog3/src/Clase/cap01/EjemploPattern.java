@@ -6,8 +6,16 @@ public class EjemploPattern {
 	private static String[] testNombres = {
 		"prueba.txt", "prueba2.jpg", "otro.dat", "pedro.doc", "andoni.txt", "dir"
 	};
-	public static void main(String[] args) {
-		// Expresión regular de p*.* -->   p .* \. .*
+	public static void main(String[] args) { 
+		//Los paterns nos permitn establecer "rangos" de datos aceptados. TODO TODO
+		//Ciertas expresiones tienen que designarse de manera especial (mirar los doc)
+		//Pareccen ser algo similares a las de la cmd.
+		
+		
+		// Expresión regular de p .* \. .*. Lo cumplen: prueba.txt, prueba2.jpg, pedro.doc
+		//p == empieza por pe
+		//.* == cualquier caracter varias veces (no hay rango establecido de caracteres)
+		//
 		// Como el carácter \ en un string en Java es especial, hay que poner \\
 		String patron1 = "p.*\\..*";   // Patrón de la ER  String "p.*\\..*" -> ER p.*\..* 
 		System.out.println( patron1 );

@@ -2,6 +2,8 @@ package Clase.cap01.ejercicios;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.regex.Pattern;
+
 import javax.swing.*;
 
 /** Ejercicio de pattern: ¿cómo comprobar que una fecha tiene el formato correcto dd/mm/aaaa?
@@ -14,7 +16,11 @@ public class EjercicioPattern {
 	 * @return	true si la fecha cumple el formato dd/mm/aaaa, false en caso contrario
 	 */
 	public static boolean comprobarFecha( String fecha ) {
-		// TODO Implementar esto con expresiones regulares y clase Pattern
+		Pattern pat1 = Pattern.compile("[0-9][0-9]/[0-9][0-9]/[0-2][0-9][0-9][0-9]");
+		//Pattern pat1 = Pattern.compile("\\d\\d/\\d\\d/\\d\\d\\d\\d"); //Opción 2
+		if(pat1.matcher(fecha).matches()) {
+			return true;
+		}
 		return false;
 	}
 
