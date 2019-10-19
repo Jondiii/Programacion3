@@ -537,4 +537,17 @@ public class VentanaEdicionSprites extends JFrame {  // Vamos a definir una clas
 	public ControladorVentanaSprites getController() {
 		return miControlador;
 	}
+	
+	public JSlider[] getAllSliders() {
+		JSlider[] lista = new JSlider[6];
+		lista[0].add(slZoom);
+		lista[1].add(slRotacion);
+		lista[2].add(slVelocidad);
+		lista[3].add(slAngulo);
+		lista[4].add(slGravedad);
+		lista[5].add(slRotacionAnim);
+		lista[6].add(slZoomAnim);
+		
+		return lista;
+	}
 }

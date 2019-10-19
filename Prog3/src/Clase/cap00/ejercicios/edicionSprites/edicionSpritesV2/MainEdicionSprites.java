@@ -34,7 +34,7 @@ public class MainEdicionSprites {
 //		} catch (Exception e) {
 //		}
 		
-		try {//PASO 1 VAS POR AQUI JON
+		try {//PASO 1
 			prf.loadFromXML(new java.io.FileInputStream( "propertiesPractica1.xml" ));
 		} catch (Exception e) {
 		}

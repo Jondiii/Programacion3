@@ -1,12 +1,15 @@
 package Clase.cap00.ejercicios.edicionSprites.edicionSpritesV2;
 
 import java.awt.*;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.*;
 import java.net.*;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 
 import javax.swing.*;
 
@@ -44,6 +47,44 @@ public class ControladorVentanaSprites {
 	 */
 	public ControladorVentanaSprites( VentanaEdicionSprites vent ) {
 		miVentana = vent;
+		miVentana.addWindowListener(new WindowListener() {
+			
+			@Override
+			public void windowClosed(WindowEvent e) { //PASO 1
+				MainEdicionSprites.prf.setProperty("ALTURA", Integer.toString(miVentana.getHeight()));
+				MainEdicionSprites.prf.setProperty("ANCHO", Integer.toString(miVentana.getWidth()));
+				MainEdicionSprites.prf.setProperty("POSX", Double.toString(miVentana.getLocation().getX()));
+				MainEdicionSprites.prf.setProperty("POSY", Double.toString(miVentana.getLocation().getX()));
+				MainEdicionSprites.prf.setProperty("ALTURA", Integer.toString(miVentana.getHeight()));
+				
+				JSlider[] lista = vent.getAllSliders();
+				for (JSlider slider : lista) {
+					MainEdicionSprites.prf.setProperty(slider.getName(), Integer.toString(slider.getOrientation()));
+				}
+				
+				MainEdicionSprites.prf.setProperty("ULT_CARPETA", miVentana.lCarpetaSel.getText());
+			}
+			
+			@Override
+			public void windowOpened(WindowEvent e) {}
+			
+			@Override
+			public void windowIconified(WindowEvent e) {}
+			
+			@Override
+			public void windowDeiconified(WindowEvent e) {}
+			
+			@Override
+			public void windowDeactivated(WindowEvent e) {}
+			
+			@Override
+			public void windowClosing(WindowEvent e) {}
+			
+			
+			
+			@Override
+			public void windowActivated(WindowEvent e) {}
+		});
 	}
 
 		// (1) y (5) Objetos privados usados para visualizar las listas de ficheros
@@ -148,9 +189,20 @@ public class ControladorVentanaSprites {
 					return o1.getName().compareTo( o2.getName() );
 				}
 			});
+			
+			Pattern pat1 = Pattern.compile(".*.png");
+			Pattern pat2 = Pattern.compile(".*.jpg");
+			Pattern pat3 = Pattern.compile(".*.gif");
+			
 			for (File f2 : fics) { // Recorre los ficheros y añade los pngs
-				if (f2.getName().toLowerCase().endsWith("png"))  // Añadir más extensiones si procede
+				if (pat1.matcher(f2.getName()).matches()) {//Paso 4
 					miVentana.mSprites.addElement( f2 );
+				} else if (pat2.matcher(f2.getName()).matches()) {
+					miVentana.mSprites.addElement( f2 );
+				} else if (pat3.matcher(f2.getName()).matches()) {
+					miVentana.mSprites.addElement( f2 );
+				}
+					
 			}
 			// O lo que sería lo mismo....
 			// for (File f2 : dir.listFiles( new FilenameFilter() {

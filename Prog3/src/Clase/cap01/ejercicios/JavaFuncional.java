@@ -18,6 +18,7 @@ public class JavaFuncional {
 	private static JTextField tfEntrada = new JTextField( 20 );
 	
 	/** Crea ventana de ejemplo con un cuadro de texto y un botón
+	 * USAR JAVA FUNCIONAL (NO ACTION LISTENER) TODO TODO
 	 * @param args	No utilizado
 	 */
 	public static void main(String[] args) {
