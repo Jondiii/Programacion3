@@ -37,6 +37,18 @@ public class JavaFuncional {
 		f.pack();
 		f.setLocationRelativeTo( null );
 		f.setVisible( true );
+		
+		bProcesar.addActionListener(
+				(e) -> {ArrayList<Integer> a = listaDeInts(listaDeStrings(tfEntrada.getText()));
+				System.out.println(a);
+					for (int num : a) {
+						lSalida.setText(Integer.toString(num));
+						lSalida.repaint();
+						try {
+							Thread.sleep(760);
+						} catch (Exception e2) {}
+					}
+				});
 	}
 	
 	/** Devuelve un arraylist de strings partiendo de un string con comas
