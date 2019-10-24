@@ -17,7 +17,7 @@ public class EjemploSockets {
 	private static String HOST = "localhost";  // IP de conexión para la comunicación
 	private static int PUERTO = 4000;          // Puerto de conexión
 	
-	private static VentanaServidor vs;
+	private static VentanaServidor vs;			//El server es quién se "abre" a otras conexiones. Puede establecer conexión con varios clientes a la vez.
 	private static VentanaCliente vc;
 	public static void main(String[] args) {
 		vs = new VentanaServidor();
@@ -39,7 +39,7 @@ public class EjemploSockets {
 	}
 
 	@SuppressWarnings("serial")
-	public static class VentanaCliente extends JFrame {
+	public static class VentanaCliente extends JFrame { //EJERCICIO: Modificar programa. Si el cliente dice "hora" el server devuelve la hora.
 		JLabel lEstado = new JLabel( " " );
 		JTextField tfMensaje = new JTextField( "Introduce tu mensaje y pulsa <Enter>" );
         PrintWriter flujoOut;
@@ -59,7 +59,7 @@ public class EjemploSockets {
 			});
 			tfMensaje.addActionListener( new ActionListener() { // Evento de <enter> de textfield
 				@Override
-				public void actionPerformed(ActionEvent e) {
+				public void actionPerformed(ActionEvent e) { //Aquí se manda algo al server.
 					flujoOut.println( tfMensaje.getText() );
 					if (tfMensaje.getText().equals("fin"))
 						finComunicacion = true;
@@ -75,7 +75,7 @@ public class EjemploSockets {
 			});
 		}
 	    public void lanzaCliente() {
-	        try (Socket socket = new Socket( HOST, PUERTO )) {
+	        try (Socket socket = new Socket( HOST, PUERTO )) { //En el cliente se usa un socket, en el server un server socket. Le pones la IP del servidor
 	            BufferedReader echoes = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 	            flujoOut = new PrintWriter(socket.getOutputStream(), true);
 	            do {
@@ -94,8 +94,8 @@ public class EjemploSockets {
 	}
 	    
 	@SuppressWarnings("serial")
-	public static class VentanaServidor extends JFrame {
-		JLabel lEstado = new JLabel( " " );
+	public static class VentanaServidor extends JFrame { //Muchas veces los servers no tienen interfaz gráfico. Suelen tener un log.
+		JLabel lEstado = new JLabel( " " );				//Primero se lanza el server.
 		JTextArea taMensajes = new JTextArea( 10, 1 );
         boolean finComunicacion = false;
         Socket socket;
@@ -119,14 +119,14 @@ public class EjemploSockets {
 			});
 		}
 	    public void lanzaServidor() {
-	    	try(ServerSocket serverSocket = new ServerSocket( PUERTO )) {
+	    	try(ServerSocket serverSocket = new ServerSocket( PUERTO )) {	//El puerto es el canal por el que te comunicas. Son 16 bits (creo)
 	    		socket = serverSocket.accept();
 	    		lEstado.setText( "Cliente conectado" );
-	    		BufferedReader input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-	    		PrintWriter output = new PrintWriter(socket.getOutputStream(), true);
+	    		BufferedReader input = new BufferedReader(new InputStreamReader(socket.getInputStream())); //Canal de comunicación de entrada. Para imagen se pondría object input stream
+	    		PrintWriter output = new PrintWriter(socket.getOutputStream(), true);						//Canal de comunicación de salida.
 	    		while(!finComunicacion) {
-	    			String textoRecibido = input.readLine();
-	    			if(textoRecibido.equals("fin")) {
+	    			String textoRecibido = input.readLine(); //Está aquí esperando a que el cliente le diga algo
+	    			if(textoRecibido.equals("fin")) {		//Para límite de tiempo poner un timeout. Estos se definen sobre el socket
 	    				break;
 	    			}
 	    			lEstado.setText( "Recibido de cliente: [" + textoRecibido + "]" );
