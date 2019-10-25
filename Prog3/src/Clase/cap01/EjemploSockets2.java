@@ -135,7 +135,7 @@ public class EjemploSockets2 {
 		// *VARIOS CLIENTES*
 		// Como el servidor va a gestionar varios clientes hacemos una lista de sockets en lugar de solo uno, y una lista de salidas para mensajes de difusión
         ArrayList<Socket> lSockets = new ArrayList<>(); 
-        ArrayList<PrintWriter> lSalidas = new ArrayList<>();
+        ArrayList<PrintWriter> lSalidas = new ArrayList<>(); 
         int numCliente = 0;  // Añadimos un número de cliente para saber cuántos se conectan
 		public VentanaServidor() {
 			setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
@@ -171,7 +171,7 @@ public class EjemploSockets2 {
 						// Cada vez que un cliente se conecta, se genera un HILO que hace la comunicación (la lectura) con ese cliente. Y el servidor sigue ejecutando para esperar a otro cliente
 						lSockets.add( socket );
 						numCliente++;
-						Thread t = new Thread ( new Runnable() { @Override public void run() {
+						Thread t = new Thread ( new Runnable() { @Override public void run() { //El hilo se queda a conversar con el cliente.
 							int numC = numCliente;
 							try {
 								lEstado.setText( "Cliente " + numC + " conectado" );
@@ -186,8 +186,8 @@ public class EjemploSockets2 {
 									lEstado.setText( "Recibido de cliente " + numC + ": [" + textoRecibido + "]" );
 									taMensajes.append( "[" + numC + "] " + textoRecibido + "\n" );
 									taMensajes.setSelectionStart( taMensajes.getText().length() );
-									if (textoRecibido.equals("hola")) {
-										for (PrintWriter outputCl : lSalidas) {
+									if (textoRecibido.equals("hola")) {			//Para hcer un chat simplemente quitar esto y se reenviarían los mensajes a todos.
+										for (PrintWriter outputCl : lSalidas) { //Con esto podemos reenviar un mensaje de un cliente a todos los demás.
 											outputCl.println( "El cliente " + numC + " saluda a todos." );
 										}
 									} else {

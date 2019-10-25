@@ -2,6 +2,7 @@ package Clase.cap01;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.Date;
 import java.net.ServerSocket;
 import java.awt.*;
 import javax.swing.*;
@@ -128,6 +129,9 @@ public class EjemploSockets {
 	    			String textoRecibido = input.readLine(); //Está aquí esperando a que el cliente le diga algo
 	    			if(textoRecibido.equals("fin")) {		//Para límite de tiempo poner un timeout. Estos se definen sobre el socket
 	    				break;
+	    			} else if (textoRecibido.equals("hora")) {
+	    				output.println("" + new Date());
+	    				continue;//Hace que se vuelva a ejecutar el bucle, es decir, se salta todo lo de abajo.
 	    			}
 	    			lEstado.setText( "Recibido de cliente: [" + textoRecibido + "]" );
 	    			taMensajes.append( textoRecibido + "\n" );
