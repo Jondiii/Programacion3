@@ -28,6 +28,9 @@ public class TestEjemploFicheros {
 		miListaUsuarios.add( new Usuario( "woody", "woody", "Woody", "The cowboy", 666111222, TipoUsuario.Cliente, "woody-toystory@gmail.com" ) );
 		miListaUsuarios.add( new Usuario( "pcruz", "4556gght", "Penélope", "Cruz", 609634852, TipoUsuario.Invitado, "penelope.cruz@gmail.com" ) );
 		miListaUsuarios.add( new Usuario( "jbardem", "bardemthebest", "Javier", "Bardem", 607349552, TipoUsuario.Invitado, "javier.bardem@gmail.com" ) );
+		
+		miListaUsuarios.add( new Usuario( "buzz2", "#9a'bbf", "Buzz", "Lightyear", 101202303, TipoUsuario.Admin, "buzz@gmail.com", "amigo.de.woody@gmail.com" ) );
+
 	}
 
 	@After
