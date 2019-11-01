@@ -6,5 +6,6 @@
 	<classpathentry kind="src" path="TestSprites1"/>
 	<classpathentry kind="lib" path="C:/Users/jdiaz/librerias_java/vlcj-4.1.0/vlcj-4.1.0.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="lib" path="C:/Users/jdiaz/librerias_java/sqlite-jdbc-3.27.2.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
