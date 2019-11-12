@@ -20,9 +20,10 @@ public class ExploracionRecursiva {
 	}
 	
 	private static void prueba1() {
-		int n = 5;
 		//System.gc(); //No sé por qué lo he puesto.
-		f2(0);
+
+
+		int n = factorial(5);
 		
 		System.out.println(n);
 	}
@@ -63,10 +64,10 @@ public class ExploracionRecursiva {
 	}
 	
 	private static int factorial(int n) {
-		if (n == 0) return n;
-		
-		n = n * factorial(n-1);
-		
+		if (n == 0) return 1;
+		else {
+			n = n * factorial(n-1);
+		}
 		return n;
 	}
 	
