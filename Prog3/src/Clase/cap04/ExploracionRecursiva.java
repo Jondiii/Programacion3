@@ -16,14 +16,14 @@ public class ExploracionRecursiva {
 	private static String nombre = "Prueba";
 	
 	public static void main(String[] args) {
-		prueba1();
+		System.out.println(factorial(15));
+		aLaLuna();
 	}
 	
 	private static void prueba1() {
 		//System.gc(); //No sé por qué lo he puesto.
 
-
-		int n = factorial(5);
+		long n = factorial(5);
 		
 		System.out.println(n);
 	}
@@ -63,7 +63,7 @@ public class ExploracionRecursiva {
 		}
 	}
 	
-	private static int factorial(int n) {
+	private static long factorial(long n) {
 		if (n == 0) return 1;
 		else {
 			n = n * factorial(n-1);
@@ -71,4 +71,36 @@ public class ExploracionRecursiva {
 		return n;
 	}
 	
+	private static void factorial2(int nInicial, long valorInicial, int nFinal) {
+		if(nInicial == nFinal) {
+			System.out.println(valorInicial);
+		} else {
+			factorial2(nInicial+1, valorInicial*(nInicial+1), nFinal);
+		}
+	}
+	
+	/**
+	 * Calcula el producto de m y n utilizando solo sumas
+	 * m * n = m + m*(n-1)
+	 */
+	private static int prodConSuma(int m, int n) {
+		if(n == 0) return 0;
+		else {
+			return m + prodConSuma(m, n-1);
+		}
+	}
+	
+	private static void aLaLuna() {
+		calcDobleces(0.0001, 384400000.0, 0);
+	}
+	
+	private static void calcDobleces(double grosor, double distancia, int numDobleces) {
+		if(grosor >= distancia) {
+			System.out.println(numDobleces);
+		} else {
+			calcDobleces(grosor*2, distancia, numDobleces+1);
+		}
+	}
+	
+	//Hacer: f(n) = f(n-1)+f(n-2); buscar caso base
 }
