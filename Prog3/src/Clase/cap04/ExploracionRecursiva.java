@@ -10,14 +10,16 @@ public class ExploracionRecursiva {
 	 * luego al método f(), y se le asigna su espacio. El método f() llama a g(), al que se le asigna su espacio, y una vez
 	 * se haga return de g(), se borra su espacio asignado, que es el último que se ha añadido a la pila. Cada vez que se hace
 	 * return de un método se borra su espacio asignado, y como las variables locales del método no son accesibles desde fuera
-	 * se borran también.
+	 * se borran también. 
+	 * 
+	 * Fibonacci de 5: 4 + 3 -> 3 + 2, 2 + 1 -> 2 + 1, 1 + 0, 1 + 0, 1 -> 1 + 0, 1, 1, 0, 1, 0, 1
 	 */
 	
 	private static String nombre = "Prueba";
 	
 	public static void main(String[] args) {
-		System.out.println(factorial(15));
-		aLaLuna();
+		hanoi(3);
+		busquedaBinaria();
 	}
 	
 	private static void prueba1() {
@@ -103,4 +105,53 @@ public class ExploracionRecursiva {
 	}
 	
 	//Hacer: f(n) = f(n-1)+f(n-2); buscar caso base
+	private static int fibonacci( int n) {
+		if(n==1) {
+			return 1;
+		} else if (n==2) {
+			return 1;
+		} else {
+			return fibonacci(n-1) + fibonacci(n-2);
+		}
+	}
+	
+	private static void hanoi(int num) {
+		hanoiRec(num, 'A', 'B', 'C');
+	}
+	
+	private static void hanoiRec(int tam, char origen, char destino, char auxiliar) {
+		if (tam == 1) { //Caso Base
+			System.out.println("Muevo el disco 1 de " + origen + " a " + destino) ;
+		} else {
+		hanoiRec(tam - 1, 'A', auxiliar, destino);
+		System.out.println("Muevo el disco " + tam + " de " + origen + " a " + destino) ;
+		hanoiRec(tam-1, auxiliar, destino, origen);
+		}
+	}
+	
+	private static void busquedaBinaria() {
+		int[] v = {1, 2, 10, 11, 15, 21, 43, 57, 83, 84, 85, 86, 87, 89, 110};
+		System.out.println(busq(v, 110, 0, v.length - 1));
+	}
+	
+	
+	//Busca el valorBuscado en el vector v entre las posiciones ini y fin, ambas inclusive.
+	//Devuelve la posición del vector si se encuentra el valor, devuelve -1 si no.
+	//Calculamos la mitad 
+	//Comparamos el valor buscado con el que hay en la mitad
+	//a) son iguales - CB
+	//b) El de la mitad es menor: buscar recursivamente en la mitad superior
+	//c) El de la mitad es mayor: buscar recursivamente en la mitad inferior
+	private static int busq(int[] v, int valorBuscado, int primeraPos, int ultPos) {
+		if (primeraPos>ultPos) return -1;
+		int mitad = (primeraPos + ultPos)/2; //int devuelve un entero
+		if (v[mitad] == valorBuscado) {
+			return mitad;
+		} else if (v[mitad]<valorBuscado) {
+			return busq(v, valorBuscado, mitad+1, ultPos);
+		} else {
+			return busq(v, valorBuscado, primeraPos, mitad-1);
+		}
+		
+	}
 }
