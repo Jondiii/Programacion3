@@ -27,7 +27,8 @@ public class Tabla {
 	protected ArrayList<String> cabeceras; // Nombres de las cabeceras-columnas
 	protected ArrayList<Class<?>> tipos; // Tipos de cada una de las columnas (inferidos de los datos strings)
 	protected ArrayList<ArrayList<Object>> dataO; // Datos de la tabla (en el orden de las columnnas), implementados todos como objects (en lugar de strings)
-	
+	//TODO Cada elemento de data0 es un arraylist. Es una especie de arraylist bidimensional, la posición en data0 indica la fila,
+	//y ese arraylist que hace de fila tiene todos elementos de esa fila como elementos.
 	// =================================================
 	// Métodos de instancia
 
@@ -58,6 +59,8 @@ public class Tabla {
 	 * @param cabecera	Nombre de cabecera a encontrar
 	 * @param exact	true si el match debe ser exacto, false si vale con que sea parcial
 	 * @return	número de la columna de primera cabecera que encaja con el nombre pedido, -1 si no existe ninguna
+	 * TODO Lo que pone arriba, si no tiene que ser exacto vale con que el string introducido esté dentro de una de las cabeceras.
+	 * Tras encontrarla se hace break (se rompe el bucle) y se devuelve el número de la columna.
 	 */
 	public int getColumnaConCabecera( String cabecera, boolean exact ) {
 		String headerUp = cabecera.toUpperCase();
@@ -88,6 +91,7 @@ public class Tabla {
 	
 	/** Devuelve una fila completa de cabeceras separada por tabs
 	 * @return	Serie de cabeceras separadas por tabs y acabadas en tab
+	 * TODO getWidth es un método de Tabla, devuelve el size de las cabezeras (o sea, cuántas cabezeras hay)
 	 */
 	public String getCabecerasTabs() {
 		String ret = "";
@@ -115,6 +119,7 @@ public class Tabla {
 	/** Cambia las cabeceras y tipos de la tabla, BORRANDO los datos si los hubiera
 	 * @param cabeceras	Nombres de las cabeceras de datos
 	 * @param tipos	Tipos de las columnas (debe tener la misma longitud)
+	 * TODO ¿Y si no tiene la misma longitud qué?
 	 */
 	public void setCabecerasYTipos( ArrayList<String> cabeceras, ArrayList<Class<?>> tipos ) {
 		this.cabeceras = cabeceras;
@@ -166,6 +171,7 @@ public class Tabla {
 	/** Añade una columna al final de las existentes
 	 * @param cabecera	Nuevo nombre de cabecera para la columna
 	 * @param valPorDefecto	Valor por defecto para asignar a cada fila existente en esa nueva columna (infiere el tipo del valor por defecto, que NO DEBE ser null
+	 * TODO Aquí no se comprueba que sea o no null el valor por defecto.
 	 */
 	public void addColumna( String cabecera, Object valPorDefecto ) {
 		cabeceras.add( cabecera );
@@ -735,7 +741,9 @@ public class Tabla {
 		public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
 			for (TableModelListener l : lListeners) {
 				l.tableChanged( new TableModelEvent( this, rowIndex, rowIndex, columnIndex, TableModelEvent.UPDATE ) );
-			}
+			}//TODO Parece un array donde se guarda el objeto TableModeEvent, la fila (2 veces¿?), columna y el tipo de evento (update).
+			 //Parece que según se hacen cambios el addTableModelListener los guarda en el arrayList, y después el setValueAt registra
+			 //'bien' esos cambios?? No parece que este método en sí cambie nada.
 		}
 		
 		private ArrayList<TableModelListener> lListeners = new ArrayList<>();

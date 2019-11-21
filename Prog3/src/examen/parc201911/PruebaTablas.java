@@ -47,6 +47,7 @@ public class PruebaTablas {
 			    }
 			} catch (Exception e) {} // Si no está disponible nimbus, no se hace nada
 			
+			//TODO Crea la tabla test.
 			// 2.- Crea una tabla estadística de prueba con datos directos desde código
 			TablaEstadistica tabla = new TablaEstadistica();
 			tabla.addColumna( "datoI", new Integer(0) );
