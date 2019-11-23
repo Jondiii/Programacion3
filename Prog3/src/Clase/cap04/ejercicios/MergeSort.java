@@ -8,6 +8,7 @@ public class MergeSort {
 	 * @param nums	Array de enteros a ordenar
 	 * @param ini	Posición inicial de la ordenación
 	 * @param fin	Posición final de la ordenación (inclusive)
+	 * TODO hay que hacer particiones = a log en base 2 de n.
 	 */
 	public static void mergeSort( int[] nums, int ini, int fin ) {
 		// TODO
