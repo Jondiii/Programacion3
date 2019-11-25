@@ -72,12 +72,12 @@ public class Recursividad { //Práctica 4 de prog 3.
 //		longAHexa(l-16);
 //	}
 	
-	private static ArrayList<String> sacaPalabras(Scanner fichero) {
-		ArrayList<String> lista = new ArrayList<>();
-		if (fichero.hasNext()) {
-			ArrayList<String> palabras = sacaPalabras(fichero); //Aquí tengo que hacer que se quite la palabra que ya se ha leído.
-		} else {
-			return lista;
-		}
-	}
+//	private static ArrayList<String> sacaPalabras(Scanner fichero) {
+//		ArrayList<String> lista = new ArrayList<>();
+//		if (fichero.hasNext()) {
+//			ArrayList<String> palabras = sacaPalabras(fichero); //Aquí tengo que hacer que se quite la palabra que ya se ha leído.
+//		} else {
+//			return lista;
+//		}
+//	}
 }
