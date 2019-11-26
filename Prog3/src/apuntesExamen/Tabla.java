@@ -1,4 +1,4 @@
-package examen.parc201911;
+package apuntesExamen;
 
 import java.io.*;
 import java.net.*;
@@ -27,7 +27,8 @@ public class Tabla {
 	protected ArrayList<String> cabeceras; // Nombres de las cabeceras-columnas
 	protected ArrayList<Class<?>> tipos; // Tipos de cada una de las columnas (inferidos de los datos strings)
 	protected ArrayList<ArrayList<Object>> dataO; // Datos de la tabla (en el orden de las columnnas), implementados todos como objects (en lugar de strings)
-	
+	//TODO Cada elemento de data0 es un arraylist. Es una especie de arraylist bidimensional, la posición en data0 indica la fila,
+	//y ese arraylist que hace de fila tiene todos elementos de esa fila como elementos.
 	// =================================================
 	// Métodos de instancia
 
@@ -58,6 +59,8 @@ public class Tabla {
 	 * @param cabecera	Nombre de cabecera a encontrar
 	 * @param exact	true si el match debe ser exacto, false si vale con que sea parcial
 	 * @return	número de la columna de primera cabecera que encaja con el nombre pedido, -1 si no existe ninguna
+	 * TODO Lo que pone arriba, si no tiene que ser exacto vale con que el string introducido esté dentro de una de las cabeceras.
+	 * Tras encontrarla se hace break (se rompe el bucle) y se devuelve el número de la columna.
 	 */
 	public int getColumnaConCabecera( String cabecera, boolean exact ) {
 		String headerUp = cabecera.toUpperCase();
@@ -88,6 +91,7 @@ public class Tabla {
 	
 	/** Devuelve una fila completa de cabeceras separada por tabs
 	 * @return	Serie de cabeceras separadas por tabs y acabadas en tab
+	 * TODO getWidth es un método de Tabla, devuelve el size de las cabezeras (o sea, cuántas cabezeras hay)
 	 */
 	public String getCabecerasTabs() {
 		String ret = "";
@@ -115,6 +119,7 @@ public class Tabla {
 	/** Cambia las cabeceras y tipos de la tabla, BORRANDO los datos si los hubiera
 	 * @param cabeceras	Nombres de las cabeceras de datos
 	 * @param tipos	Tipos de las columnas (debe tener la misma longitud)
+	 * TODO ¿Y si no tiene la misma longitud qué?
 	 */
 	public void setCabecerasYTipos( ArrayList<String> cabeceras, ArrayList<Class<?>> tipos ) {
 		this.cabeceras = cabeceras;
@@ -166,6 +171,7 @@ public class Tabla {
 	/** Añade una columna al final de las existentes
 	 * @param cabecera	Nuevo nombre de cabecera para la columna
 	 * @param valPorDefecto	Valor por defecto para asignar a cada fila existente en esa nueva columna (infiere el tipo del valor por defecto, que NO DEBE ser null
+	 * TODO Aquí no se comprueba que sea o no null el valor por defecto.
 	 */
 	public void addColumna( String cabecera, Object valPorDefecto ) {
 		cabeceras.add( cabecera );
@@ -187,12 +193,14 @@ public class Tabla {
 	 */
 	public void addDataLine() {
 		ArrayList<Object> line = new ArrayList<>();
-		for (int i=0; i<cabeceras.size(); i++) line.add( null );
+		for (int i=0; i<cabeceras.size(); i++) line.add( null ); //TODO añade tantos nulls como columnas (cabeceras) tenga la tabla.
 		dataO.add( line );
 	}
 	
 	/** Añade a la actual las líneas de valores de una segunda tabla
 	 * @param tabla2	Segunda tabla. Solo se añaden aquellos valores cuyas columnas ya existan en la tabla original
+	 * TODO Comprueba que haya algún dato, si lo hay, por cada fila de la segunda tabla se crea una fila de nulls
+	 * en la primera, y se rellenan inmediatamente si el tipo de datos es correcto y el nombre de sus columnas coincide.
 	 */
 	public void addLineas( Tabla tabla2 ) {
 		if (tabla2.dataO==null || dataO==null) return;
@@ -200,7 +208,7 @@ public class Tabla {
 			addDataLine();
 			for (int col=0; col<tabla2.cabeceras.size(); col++) {
 				String nomCol = tabla2.cabeceras.get(col);
-				if (cabeceras.contains(nomCol)) {
+				if (cabeceras.contains(nomCol)) {			//TODO si el nombre de columna existe, lo añade a la fila y columna correspondientes.
 					set( nomCol, tabla2.get( fila, col ) );
 				}
 			}
@@ -221,6 +229,7 @@ public class Tabla {
 	 * @param nomCol	Nombre de columna
 	 * @return	Dato de ese valor
 	 * @throws IndexOutOfBoundsException si el nombre de columna no se encuentra en las cabeceras
+	 *TODO Este método tiene un throw, pero el anterior no, lo cual es raro.
 	 */
 	public Object get( int row, String nomCol ) throws IndexOutOfBoundsException {
 		int col = cabeceras.indexOf( nomCol );
@@ -277,7 +286,7 @@ public class Tabla {
 		}
 	}
 	
-	/** Modifica un valor de dato de la tabla
+	/** Modifica un valor de dato de la tabla //TODO Mira que el valor que se le quiere asignar a una casilla concreta sea válido. Si no lo es lanza una excepción.
 	 * @param row	Número de fila
 	 * @param col	Número de columna
 	 * @param valor	Valor a modificar en esa posición
@@ -287,7 +296,7 @@ public class Tabla {
 		if (tipos.get(col)!=null && valor!=null && !tipos.get(col).isAssignableFrom( valor.getClass() )) {  // Control de tipo incorrecto
 			throw new ClassCastException( "Error en set: intentando asignar [" + valor + "] un " + valor.getClass().getSimpleName() + " en un " + tipos.get(col).getSimpleName() + " en columna " + col );
 		}
-		dataO.get( row ).set( col, valor );
+		dataO.get( row ).set( col, valor );//TODO get el arrayList y set valor en el index col.
 		cambioEnTabla( row, col, row, col );  // Evento de cambio para posible JTable asociada
 	}
 	
@@ -296,7 +305,7 @@ public class Tabla {
 	 * @param nomCol	Nombre de columna
 	 * @param valor	Valor a modificar en esa posición
 	 */
-	public void set( int row, String nomCol, Object valor ) {
+	public void set( int row, String nomCol, Object valor ) { //TODO como el set de antes pero se le da el nombre de la columna en vez del número.
 		int col = cabeceras.indexOf( nomCol );
 		if (col==-1) throw new IndexOutOfBoundsException( "Columna no encontrada: " + nomCol );
 		set( row, col, valor );
@@ -329,6 +338,7 @@ public class Tabla {
 	/** Devuelve una fila completa de la tabla separada por tabs y quitando saltos de línea
 	 * @param row	Número de fila
 	 * @return	Serie de valores de esa fila separados por tabs y acabados en tab
+	 * TODO un for recorre toda la fila, si está vacía la casilla pone un tab, si no convierte el dato a string.
 	 */
 	public String getFilaTabs( int row ) {
 		String ret = "";
@@ -344,12 +354,17 @@ public class Tabla {
 	/** Procesa tabla de datos con los datos ya existentes. Recalcula los tipos de datos que sean strings (inferidos de los valores que tienen esos strings) comprobando que puedan ser integer, double o date.<br/>
 	 * Si no hay congruencia en todos los valores, se mantienen los tipos string.
 	 * @return	0 si el cálculo es correcto, n>0 si hay alguna fila (n) con un número de datos no coherente con la tabla
+	 * 
+	 * TODO se puede poner una concidión al foreach. En este caso que el número de columnas y el de las casillas que coincidan.
+	 * El lin solo aumenta si hay un error, así que aunque haya uno en la línea 20 seguiría diciendo "Error en línea 1", no?
+	 * O igual lin se refiere a cuántos errores ha habido, aunque entonces no sé pa qué está el ok.
+	 * Resumen: no entiendo qué hace la "segunda" parte de este método.
 	 */
 	public int recalcTipos() {
 		// 1.- calcula errores
 		int ok = 0;
 		int lin = 1;
-		for (ArrayList<Object> line : dataO) if (line.size()!=cabeceras.size()) {
+		for (ArrayList<Object> line : dataO) if (line.size()!=cabeceras.size()) { 
 			ok++;
 			System.err.println( "Error en línea " + lin + ": " + line.size() + " valores en vez de " + cabeceras.size() );
 			lin++;
@@ -359,7 +374,7 @@ public class Tabla {
 		Class<?> tipo = null;
 		for (int col=0; col<cabeceras.size(); col++) {
 			tipo = tipos.get(col);
-			if (tipo==String.class && dataO.size()>0) {
+			if (tipo==String.class && dataO.size()>0) { //TODO hace algo si la columna es un string, y si no lo es qué?
 				tipo = null;
 				for (int row=0; row<dataO.size(); row++) {
 					Class<?> nextType = calcDataType( (String) dataO.get(row).get(col) );
@@ -368,7 +383,7 @@ public class Tabla {
 						break; // El tipo es String, no se puede recalcular a otro diferente
 					} else if (nextType!=null) {  // Si el tipo es nulo no ayuda, tenemos que seguir mirando. Si no es nulo comprobamos:
 						if (tipo==null || tipo==nextType) {  // Tipo homogéneo, lo guardamos
-							tipo = nextType;
+							tipo = nextType; //TODO si antes se ha puesto que tipo = null, que sentido tiene el or del if? Siempre va a ser null
 						} else if (tipo!=nextType) {  // Tipo heterogéneo, vamos a ver si encaja
 							if (tipo==Integer.class && nextType==Double.class) {  // El int sí puede ser double
 								tipo = Double.class;
@@ -414,6 +429,7 @@ public class Tabla {
 	}
 		// Devuelve suposición de tipo de valor String (si value es un string), null si es nulo o no se puede suponer (indefinido)
 		// Comprueba solo tipos Integer, Double o Date
+		//TODO Mira si el valor es int, double o date y devuelve esa clase. 
 		private Class<?> calcDataType( String valor ) {
 			if (valor==null) return null;
 			if (valor.isEmpty()) return null;
@@ -448,6 +464,7 @@ public class Tabla {
 	 * @param col1	Columna inicial del cambio
 	 * @param fila2	Fila final del cambio (incluida)
 	 * @param col2	Columna final del cambio (incluida)
+	 * TODO Es que es raro, se guarda dónde se ha hecho el cambio pero no el cambio en sí.
 	 */
 	public void cambioEnTabla( int fila1, int col1, int fila2, int col2 ) {
 		if (miModelo==null || miModelo.lListeners==null) return;
@@ -472,6 +489,8 @@ public class Tabla {
 		
 		
 	// toString
+	//TODO Hace toString de la tabla entera, pasando por la cabezera y luego a cada fila de datos. Mete tabuladores al principio de cada línea.
+	//Si se visualiza esto en consola tiene que quedar algo chungo...
 	@Override
 	public String toString() {
 		String ret = "";
@@ -498,6 +517,10 @@ public class Tabla {
 	 * @param file	Fichero de salida
 	 * @param comasEnVezDePuntos	Si se pone true, los dobles se generan con coma decimal en vez de punto decimal
 	 * @throws IOException
+	 * TODO Vale, al poner ; se marca el final de un valor, por lo que asumo que se mete un valor en cada casilla del CSV.
+	 * El último valor no puede llevar ;, porque eso indicaría que viene otro después y lo que queremos es que pase a la siguiente línea.
+	 * El último for pilla el valor y le añade "" o ";", en función de si es el último o no. 
+	 * Esto (3==4 ? "" : ";") devuelve ;.
 	 */
 	public void generarCSV( File file, boolean comasEnVezDePuntos ) 
 	throws IOException // Error de E/S
@@ -512,7 +535,7 @@ public class Tabla {
 				Object o = get( lin, col );
 				if (o==null) o = " ";
 				else if (o instanceof Double && comasEnVezDePuntos) o = o.toString().replaceAll( "\\.", "," );
-				ps.print( o + (col==getWidth()-1 ? "" : ";") );
+				ps.print( o + (col==getWidth()-1 ? "" : ";") ); //TODO esto era que si se cumplía la condición se ponía lo primero, y si no lo segundo o al revés.
 			}
 			ps.println();
 		}
@@ -596,7 +619,7 @@ public class Tabla {
 			}
 		}
 		// Recálculo de tipos
-		int errs = tabla.recalcTipos();
+		int errs = tabla.recalcTipos(); //TODO asumo que esto calcula los tipos y no hace cambios a no ser que no haya un solo error??
 		if (errs>0) {  // Quitar filas erróneas si las hay
 			for (int fila=tabla.size()-1; fila>=0; fila--) {  // Iteramos de arriba abajo porque vamos a ir quitando filas
 				if (tabla.getFila(fila).size()!=tabla.cabeceras.size()) {
@@ -614,6 +637,7 @@ public class Tabla {
 		 * @param numLine	Número de línea ya leída
 		 * @return	Lista de strings procesados en el csv. Si hay algún string sin acabar en la línea actual, lee más líneas del input hasta que se acaben los strings o el input
 		 * @throws StringIndexOutOfBoundsException
+		 * TODO volver a mirarse esto...
 		 */
 		private static ArrayList<Object> processCSVLine( BufferedReader input, String line, int numLine ) throws StringIndexOutOfBoundsException {
 			ArrayList<Object> ret = new ArrayList<>();
@@ -735,7 +759,9 @@ public class Tabla {
 		public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
 			for (TableModelListener l : lListeners) {
 				l.tableChanged( new TableModelEvent( this, rowIndex, rowIndex, columnIndex, TableModelEvent.UPDATE ) );
-			}
+			}//TODO Parece un array donde se guarda el objeto TableModeEvent, la fila (2 veces¿?), columna y el tipo de evento (update).
+			 //Parece que según se hacen cambios el addTableModelListener los guarda en el arrayList, y después el setValueAt registra
+			 //'bien' esos cambios?? No parece que este método en sí cambie nada.
 		}
 		
 		private ArrayList<TableModelListener> lListeners = new ArrayList<>();

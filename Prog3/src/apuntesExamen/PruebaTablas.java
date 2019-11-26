@@ -1,4 +1,4 @@
-package examen.parc201911;
+package apuntesExamen;
 
 import java.awt.Color;
 import java.awt.Insets;
@@ -12,8 +12,8 @@ import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.table.TableColumn;
 
-import examen.parc201911.TablaEstadistica.CalculadorColumna;
-import examen.parc201911.TablaEstadistica.TipoEstad;
+import apuntesExamen.TablaEstadistica.CalculadorColumna;
+import apuntesExamen.TablaEstadistica.TipoEstad;
 
 /** Clase principal de prueba de algunas tablas de datos, estadísticas y de análisis
  * @author andoni.eguiluz @ ingenieria.deusto.es
@@ -47,6 +47,7 @@ public class PruebaTablas {
 			    }
 			} catch (Exception e) {} // Si no está disponible nimbus, no se hace nada
 			
+			//TODO Crea la tabla test.
 			// 2.- Crea una tabla estadística de prueba con datos directos desde código
 			TablaEstadistica tabla = new TablaEstadistica();
 			tabla.addColumna( "datoI", new Integer(0) );
