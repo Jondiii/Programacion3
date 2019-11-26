@@ -2,11 +2,15 @@ package examen.parc201911;
 
 import java.awt.Color;
 import java.awt.Insets;
+import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
@@ -28,6 +32,9 @@ public class PruebaTablas {
 			sacaVentanasPrueba();
 		} );
 	}
+	
+	private static Connection conn = null;
+	private static Statement stat = null;
 	
 	private static void sacaVentanasPrueba() {
 		try {
@@ -107,6 +114,7 @@ public class PruebaTablas {
 			ArrayList<Color> lColoresBorde = new ArrayList<>( Arrays.asList( Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK ) );
 			TablaEstadistica ta = new TablaEstadistica( Tabla.processCSV(new File( "src/examen/parc201911/datos.csv" ) ) );
 			VentanaTabla vDatos = mainNuevaVent( vgt, ta, "Puntuaciones y tiempos" );
+			vDatos.setMensaje( "Doble click para cambiar valor" );
 			vDatos.setLocation( 0, 300 );
 			Color ROJO_CLARO = new Color( 255, 180, 180 );
 			Color VERDE_CLARO = new Color( 180, 255, 180 );
@@ -134,11 +142,64 @@ public class PruebaTablas {
 			analPuntos.sacaGrafico( "Gráfico de puntuaciones totales por equipo", lColores, lColoresBorde, 2500, 500 );
 			analTiempos.getGrafico().getJFrame().setLocation( 100, 700 );
 			analPuntos.getGrafico().getJFrame().setLocation( 750, 700 );
+			
+			// 9.- Crea la base de datos de esta tabla
+			conn = BD.initBD( "parc201911.bd" );
+			BD.borrarBD( conn );
+			stat = BD.usarCrearTablasBD( conn, true, ta );
+			vgt.addWindowListener( new WindowAdapter() { // Cerrar la bd al cerrar la ventana
+				@Override
+				public void windowClosed(WindowEvent e) {
+					BD.cerrarBD( conn, stat );
+				}
+			});
+			
+			// 10.- Añade la gestión de doble click para cambiar valor de la tabla
+			VentanaTabla.EventoEnCelda ev = new VentanaTabla.EventoEnCelda() {
+				@Override
+				public void evento(VentanaTabla tabla, int fila, int columna) {
+					if (columna<2) return;  // Solo se pueden editar las columnas 2 en adelante
+					Tabla t = tabla.getTabla();
+					Class<?> tipoDato = t.getTipos().get( columna );
+					Object o = t.get( fila, columna );
+					String valAnterior = "";
+					if (o!=null) valAnterior = o.toString();
+					String nuevoVal = (String) JOptionPane.showInternalInputDialog( tabla, "Introduce nuevo valor:", "Cambio de dato " + t.getCabecera(columna), JOptionPane.QUESTION_MESSAGE, null, null, valAnterior );
+					if (nuevoVal!=null) {
+						if (tipoDato==String.class) {
+							tabla.getTabla().set( fila, columna, nuevoVal );
+							cambioDeValor( t, fila, columna, nuevoVal );
+						} else if (tipoDato==Integer.class) {
+							try {
+								Object oNuevo = new Integer( Integer.parseInt( nuevoVal ) );
+								tabla.getTabla().set( fila, columna, oNuevo );
+								cambioDeValor( t, fila, columna, oNuevo );
+							} catch (NumberFormatException e) {
+								JOptionPane.showInternalMessageDialog( tabla, "Valor introducido incorrecto:" + nuevoVal, "Error", JOptionPane.ERROR_MESSAGE );
+							}
+						} else if (tipoDato==Double.class) {
+							try {
+								Object oNuevo = new Double( Double.parseDouble( nuevoVal ) );
+								tabla.getTabla().set( fila, columna, oNuevo );
+								cambioDeValor( t, fila, columna, oNuevo );
+							} catch (NumberFormatException e) {
+								JOptionPane.showInternalMessageDialog( tabla, "Valor introducido incorrecto:" + nuevoVal, "Error", JOptionPane.ERROR_MESSAGE );
+							}
+						}
+					}
+				}
+			};
+			vDatos.setDobleClickCelda( ev );
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
 	}
+	
+		// Método llamado tras cambiar el valor de la tabla con doble click y un valor correcto
+		private static void cambioDeValor( Tabla tabla, int fila, int columna, Object valorNuevo ) {
+			// TODO T2
+		}
 
 		private static VentanaTabla mainNuevaVent( VentanaGeneral vgt, Tabla tabla, String tit ) {
 			VentanaTabla v = new VentanaTabla( vgt, tit, true );
