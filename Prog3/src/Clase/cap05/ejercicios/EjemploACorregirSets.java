@@ -18,6 +18,9 @@ public class EjemploACorregirSets {
 		hSS.add( new Fantasma( "casper", 1, 2) );
 		hSS.add( new Fantasma( "myrtle", 5, 10) );
 		System.out.println( hSS ); // ¿Por qué da error en ejecución?
+		
+		//No está definido el hash code, y tienen distintas referencia de memoria.
+		//El hash code que hay que poner es aquello que mire el equals.
 	}
 	
 	private static class Fantasma {

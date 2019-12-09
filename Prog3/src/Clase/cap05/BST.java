@@ -11,31 +11,32 @@ public class BST<T extends Comparable<T>> {
 	NodoBST<T> raiz;
 	
 	@SuppressWarnings("unchecked")
-	public void insertar( T... nuevos ) {
+	public void insertar( T... nuevos ) { //La primera vez raiz es null, luego ya se deja de serlo.
 		for (T nuevo : nuevos) insertarRec( null, raiz, nuevo );
 	}
 	public void insertar( T nuevo ) {
 		insertarRec( null, raiz, nuevo );
 	}
-		private void insertarRec( NodoBST<T> padre, NodoBST<T> bst, T nuevo ) {
-			if (bst==null) {  // Caso base: hay que insertar
-				NodoBST<T> nuevoNodo = new NodoBST<T>( nuevo, null, null );
-				if (padre==null) // Insertar en raíz
-					raiz = nuevoNodo;
-				else if (padre.elemento.compareTo(nuevo)<0)
-					padre.derecho = nuevoNodo;
-				else
-					padre.izquierdo = nuevoNodo;
-			} else {  // Caso general
-				int comp = (bst.elemento.compareTo(nuevo));
-				if (comp==0) // Caso base: elemento ya existe -se podría insertar iz o de pero siempre igual. O no insertar si no se permiten repeticiones (es lo que hacemos ahora)
-					; // Nada que hacer - retorno
-				else if (comp<0) // Insertar a la derecha
-					insertarRec( bst, bst.derecho, nuevo );
-				else
-					insertarRec( bst, bst.izquierdo, nuevo );
-			}
+	
+	private void insertarRec( NodoBST<T> padre, NodoBST<T> bst, T nuevo ) {
+		if (bst==null) {  // Caso base: hay que insertar
+			NodoBST<T> nuevoNodo = new NodoBST<T>( nuevo, null, null );
+			if (padre==null) // Insertar en raíz
+				raiz = nuevoNodo;
+			else if (padre.elemento.compareTo(nuevo)<0)//El compare to hace a.compareTo(b) == a - b
+				padre.derecho = nuevoNodo;
+			else
+				padre.izquierdo = nuevoNodo;
+		} else {  // Caso general
+			int comp = (bst.elemento.compareTo(nuevo));
+			if (comp==0) // Caso base: elemento ya existe -se podría insertar if o de pero siempre igual. O no insertar si no se permiten repeticiones (es lo que hacemos ahora)
+				; // Nada que hacer - retorno
+			else if (comp<0) // Insertar a la derecha
+				insertarRec( bst, bst.derecho, nuevo ); //Esto hace que se vuelva a llamar al propio método, pero "avanzando" un nivel más, hasta llegar a un punto donde
+			else										//no haya nodos en el siguiente nivel (bst.derecho y bst.izquirdo sean nulls) y después se añade a la izquierda o
+				insertarRec( bst, bst.izquierdo, nuevo );//derecha del padre.
 		}
+	}
 		
 	/** Busca un elemento en el árbol
 	 * @param aBuscar	Elemento a buscar
@@ -44,17 +45,18 @@ public class BST<T extends Comparable<T>> {
 	public boolean contains( T aBuscar ) {
 		return contains( raiz, aBuscar );
 	}
-		private boolean contains( NodoBST<T> nodo, T aBuscar ) {
-			if (nodo==null) {
-				return false;
-			} else if (nodo.elemento.compareTo( aBuscar ) == 0) {
-				return true;
-			} else if (nodo.elemento.compareTo( aBuscar ) < 0) {
-				return contains( nodo.derecho, aBuscar ); 
-			} else {
-				return contains( nodo.izquierdo, aBuscar );
-			}
+	
+	private boolean contains( NodoBST<T> nodo, T aBuscar ) {
+		if (nodo==null) {
+			return false;
+		} else if (nodo.elemento.compareTo( aBuscar ) == 0) {
+			return true;
+		} else if (nodo.elemento.compareTo( aBuscar ) < 0) {
+			return contains( nodo.derecho, aBuscar );  //Al igual que un método de antes, si no se ha encontrado el elemento se pasa al "siguiente" nivel
+		} else {
+			return contains( nodo.izquierdo, aBuscar );
 		}
+	}
 	
 	/** Busca y recupera un elemento en el árbol
 	 * @param aBuscar	Elemento a buscar
@@ -142,30 +144,34 @@ public class BST<T extends Comparable<T>> {
 				return 1 + sizeRec( nodo.izquierdo ) + sizeRec( nodo.derecho );
 		}
 
-		private volatile ArrayList<StringBuffer> lineas;
+	private volatile ArrayList<StringBuffer> lineas;
+	
 	@Override
 	public String toString() {
-		lineas = new ArrayList<>(); lineas.add( new StringBuffer("") );
+		lineas = new ArrayList<>();
+		lineas.add( new StringBuffer("") );
 		toStringRec( raiz, 0 );
 		String ret = "";
 		for (StringBuffer linea : lineas) if (!linea.toString().isEmpty()) ret += (linea + "\n");
 		return ret;
 	}
-		private void toStringRec( NodoBST<T> nodo, int nivel ) {
-			if (nodo!=null) {   // Si no caso base
-				if (lineas.size() <= nivel+1) lineas.add( new StringBuffer("") ); 
-				toStringRec( nodo.izquierdo, nivel+1 );
-				int largoInferior = lineas.get(nivel+1).length();
-				toStringRec( nodo.derecho, nivel+1 );
-				rellenaEspacios( nivel, largoInferior, lineas.get(nivel+1).length(), nodo.elemento.toString() );
-			}
+	
+	private void toStringRec( NodoBST<T> nodo, int nivel ) {
+		if (nodo!=null) {   // Si no caso base
+			if (lineas.size() <= nivel+1) lineas.add( new StringBuffer("") ); 
+			toStringRec( nodo.izquierdo, nivel+1 );
+			int largoInferior = lineas.get(nivel+1).length();
+			toStringRec( nodo.derecho, nivel+1 );
+			rellenaEspacios( nivel, largoInferior, lineas.get(nivel+1).length(), nodo.elemento.toString() );
 		}
-		private void rellenaEspacios( int nivel, int ancho1, int ancho2, String elem ) {
-			int faltanEspacios = (ancho1 + ancho2) / 2;
-			faltanEspacios = faltanEspacios - lineas.get(nivel).length();
-			for (int i=0; i<faltanEspacios-1; i++) lineas.get(nivel).append( " " );
-			lineas.get(nivel).append( elem ); lineas.get(nivel).append( " " );
-		}
+	}
+	
+	private void rellenaEspacios( int nivel, int ancho1, int ancho2, String elem ) {
+		int faltanEspacios = (ancho1 + ancho2) / 2;
+		faltanEspacios = faltanEspacios - lineas.get(nivel).length();
+		for (int i=0; i<faltanEspacios-1; i++) lineas.get(nivel).append( " " );
+		lineas.get(nivel).append( elem ); lineas.get(nivel).append( " " );
+	}
 	
 	public static void main(String[] args) {
 		BST<Integer> bst = new BST<>();
@@ -184,7 +190,7 @@ public class BST<T extends Comparable<T>> {
 		// });
 		System.out.println( "}");
 		System.out.print( "Recorrido árbol preorden = { ");
-			bst.recorrerPreOrden( (Integer i) -> { System.out.print( i + " " ); } );
+			bst.recorrerPreOrden( (Integer i) -> { System.out.print( i + " " ); } ); //No entiendo ni esto ni el Consumer
 		System.out.println( "}");
 		System.out.print( "Recorrido árbol postorden = { ");
 			bst.recorrerPostOrden( (Integer i) -> { System.out.print( i + " " ); } );

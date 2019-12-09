@@ -13,6 +13,22 @@ import Clase.cap06.pr0506resuelta.ExploradorObjetos;
 import Clase.utils.IUConsola;
 
 public class PruebasListas {
+	/**
+	 * Linked List VS Array List
+	 * 
+	 * Linked list ocupa más porque se crean varios arrays, y cada uno guarda información del objeto que tiene además de las
+	 * direcciones de la lista siguiente y la anterior. Si el objeto que se está guardando es muy grande, entonces la diferencia
+	 * de tamaños no será demasiado grande, puesto que las direcciones de memoria no ocupan mucho.
+	 * 
+	 * El linked list es mucho más lento cuando se inserta algo que no sea ni al principio ni al final.
+	 * En cualquier otro caso es mejor usar el arraylsit.
+	 * 
+	 * Las linked list no tienen memoria, por lo que usar un for para recorrerla no es buena idea.
+	 * Esto significa que en una linkedlist de 1000 elementos, si se quiere acceder al 200 y luego al 201,
+	 * el linked list comenzará en ambos casos desde el primer elemento, por lo que tarda mucho más.
+	 * Para que esto no ocurra es mejor usar un for each. 
+	 * 
+	 */
 		
 	private static void pruebaEspacioListas( int numPrueba ) {
 //		Long lll = null;

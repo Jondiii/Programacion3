@@ -6,6 +6,24 @@ import java.util.Random;
 import java.util.TreeSet;
 
 public class PruebaConjuntos {
+	
+	/**
+	 * Los mapas están creados para buscar elementos sin tener en cuenta las posiciones.
+	 * 
+	 * El problema que tienen es que no se les puede asignar el mismo valor a más de un objeto.
+	 * De todas formas, eso se puede solucionar gestionando las colisiones. 
+	 * 
+	 * Todo objeto se puede meter en un hash map.
+	 * 
+	 * Cualquier clase que pueda funcionar como clave en un hash map hay que definir un hashcode en esa clase.
+	 * 
+	 * El tree set usa el BST, se puede ver el ejemplo en BSTdesdeBusquedaBinaria.java
+	 * El problema del tree set es que solo garantiza el tiempo logarítmico si está equilibrado
+	 * en ambos lados (BSTconPruebaVisual.java). Es importante que no se vaya demasiado a un extremo.
+	 * 
+	 * RESOLVER EjemploACoregirSets.java
+	 * 
+	 */
 	public static void main(String[] args) {
 		ArrayList<Integer> lista = new ArrayList<Integer>();
 		HashSet<Integer> conjH = new HashSet<Integer>();

@@ -28,8 +28,7 @@ public class GrafoCarreteras {
 	 * @param distancia
 	 */
 	public void anyadirCarretera( String ciudad1, String ciudad2, int distancia ) {
-		if (!carreteras.containsKey( ciudad1 ))
-			carreteras.put( ciudad1, new ArrayList<>()); // Nuevo vértice con adyacencias vacías
+		if (!carreteras.containsKey( ciudad1 )) carreteras.put( ciudad1, new ArrayList<>()); // Nuevo vértice con adyacencias vacías
 		carreteras.get( ciudad1 ).add( new Carretera( ciudad1, ciudad2, distancia )); // Añadir carretera (adyacencia)
 		// Grafo no dirigido - las carreteras van igual en las dos direcciones:
 		if (!carreteras.containsKey( ciudad2 ))
@@ -46,30 +45,41 @@ public class GrafoCarreteras {
 		return getDMRec( ciudad1, ciudad2, ciudad1, 0 );
 	}
 	
-		public int getDMRec( String c1, String c2, String camino, int distAcum ) {
-			System.out.println( "<" + camino + "> dist " + distAcum );
-			if (c1.equals(c2)) {
-				System.out.println( " Fin! " + camino + " - distancia " + distAcum );
-				return 0;
-			} else {
-				int menor = Integer.MAX_VALUE;
-				for (Carretera c : carreteras.get(c1)) {  // Probamos todas las opciones de caminos...
-					if (!camino.contains(c.ciudad2)) {  // ...excepto las que hacen bucles (OJO! Sin esta condición sería infinito)
-						int dist = getDMRec( c.ciudad2, c2, camino + "#" + c.ciudad2, distAcum+c.distancia );
-						if (dist<Integer.MAX_VALUE) dist = dist + c.distancia;  // Hay camino a c2 y la distancia es dist
-						if (dist<menor) menor = dist;  // Hay camino a c2 y la distancia es la menor hasta ahora
-					}
+	/**
+	 * TODO Recursivamente busca en el hash map la lista de carreteras que tiene la ciudad. Si aún no ha pasado por esa ciudad antes (!camino.contains(c.ciudad2))
+	 * hace llamada recursiva para hacer lo mismo con esa nueva ciudad. Al llegar al destino se "vuelve" recursivamente y se van sumando las distancias.
+	 * @param c1 - ciudad actual
+	 * @param c2 - ciudad destino
+	 * @param camino - string con las ciudades recorridas separadas por #
+	 * @param distAcum - distancia hasta el momento
+	 * @return devuelve la distancia más corta. 
+	 * 
+	 * Lo que no entiendo es que hace print siempre aunque la distancia no sea la más corta.
+	 */
+	public int getDMRec( String c1, String c2, String camino, int distAcum ) {
+		System.out.println( "<" + camino + "> dist " + distAcum );
+		if (c1.equals(c2)) {
+			System.out.println( " Fin! " + camino + " - distancia " + distAcum );
+			return 0;
+		} else {
+			int menor = Integer.MAX_VALUE;
+			for (Carretera c : carreteras.get(c1)) {  // Probamos todas las opciones de caminos...
+				if (!camino.contains(c.ciudad2)) {  // ...excepto las que hacen bucles (OJO! Sin esta condición sería infinito)
+					int dist = getDMRec( c.ciudad2, c2, camino + "#" + c.ciudad2, distAcum+c.distancia );
+					if (dist<Integer.MAX_VALUE) dist = dist + c.distancia;  // Hay camino a c2 y la distancia es dist
+					if (dist<menor) menor = dist;  // Hay camino a c2 y la distancia es la menor hasta ahora
 				}
-				return menor;
 			}
+			return menor;
 		}
+	}
 	
 	public class Carretera {
 		private String ciudad1; // Redundante si usamos un mapa (ciudad de origen)
 		private String ciudad2;
 		private int distancia; // en km
 		public Carretera(String ciudad1, String ciudad2, int distancia) {
-			super();
+			super(); //Esto para qué es???
 			this.ciudad1 = ciudad1;
 			this.ciudad2 = ciudad2;
 			this.distancia = distancia;
