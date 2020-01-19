@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2020-01-09T18:09:06</date>
+  <millis>1578589746947</millis>
+  <sequence>0</sequence>
+  <logger>Ejemplo_logger</logger>
+  <level>INFO</level>
+  <class>Clase.cap01.ejercicios.EjercicioLogger</class>
+  <method>main</method>
+  <thread>1</thread>
+  <message>Creada una ventana nueva.</message>
+</record>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2020-01-09T18:17:36</date>
+  <millis>1578590256133</millis>
+  <sequence>0</sequence>
+  <logger>Ejemplo_logger</logger>
+  <level>INFO</level>
+  <class>Clase.cap01.ejercicios.EjercicioLogger</class>
+  <method>main</method>
+  <thread>1</thread>
+  <message>Creada una ventana nueva.</message>
+</record>
+<record>
+  <date>2020-01-09T18:17:40</date>
+  <millis>1578590260215</millis>
+  <sequence>1</sequence>
+  <logger>Ejemplo_logger</logger>
+  <level>SEVERE</level>
+  <class>Clase.cap01.ejercicios.EjercicioLogger</class>
+  <method>sacaFicheros</method>
+  <thread>16</thread>
+  <message>Error al sacar Ficheros.</message>
+  <exception>
+    <message>java.lang.NullPointerException</message>
+    <frame>
+      <class>Clase.cap01.ejercicios.EjercicioLogger</class>
+      <method>sacaFicheros</method>
+      <line>83</line>
+    </frame>
+    <frame>
+      <class>Clase.cap01.ejercicios.EjercicioLogger</class>
+      <method>access$0</method>
+      <line>79</line>
+    </frame>
+    <frame>
+      <class>Clase.cap01.ejercicios.EjercicioLogger$1</class>
+      <method>actionPerformed</method>
+      <line>55</line>
+    </frame>
+    <frame>
+      <class>javax.swing.JTextField</class>
+      <method>fireActionPerformed</method>
+    </frame>
+    <frame>
+      <class>javax.swing.JTextField</class>
+      <method>postActionEvent</method>
+    </frame>
+    <frame>
+      <class>javax.swing.JTextField$NotifyAction</class>
+      <method>actionPerformed</method>
+    </frame>
+    <frame>
+      <class>javax.swing.SwingUtilities</class>
+      <method>notifyAction</method>
+    </frame>
+    <frame>
+      <class>javax.swing.JComponent</class>
+      <method>processKeyBinding</method>
+    </frame>
+    <frame>
+      <class>javax.swing.JComponent</class>
+      <method>processKeyBindings</method>
+    </frame>
+    <frame>
+      <class>javax.swing.JComponent</class>
+      <method>processKeyEvent</method>
+    </frame>
+    <frame>
+      <class>java.awt.Component</class>
+      <method>processEvent</method>
+    </frame>
+    <frame>
+      <class>java.awt.Container</class>
+      <method>processEvent</method>
+    </frame>
+    <frame>
+      <class>java.awt.Component</class>
+      <method>dispatchEventImpl</method>
+    </frame>
+    <frame>
+      <class>java.awt.Container</class>
+      <method>dispatchEventImpl</method>
+    </frame>
+    <frame>
+      <class>java.awt.Component</class>
+      <method>dispatchEvent</method>
+    </frame>
+    <frame>
+      <class>java.awt.KeyboardFocusManager</class>
+      <method>redispatchEvent</method>
+    </frame>
+    <frame>
+      <class>java.awt.DefaultKeyboardFocusManager</class>
+      <method>dispatchKeyEvent</method>
+    </frame>
+    <frame>
+      <class>java.awt.DefaultKeyboardFocusManager</class>
+      <method>preDispatchKeyEvent</method>
+    </frame>
+    <frame>
+      <class>java.awt.DefaultKeyboardFocusManager</class>
+      <method>typeAheadAssertions</method>
+    </frame>
+    <frame>
+      <class>java.awt.DefaultKeyboardFocusManager</class>
+      <method>dispatchEvent</method>
+    </frame>
+    <frame>
+      <class>java.awt.Component</class>
+      <method>dispatchEventImpl</method>
+    </frame>
+    <frame>
+      <class>java.awt.Container</class>
+      <method>dispatchEventImpl</method>
+    </frame>
+    <frame>
+      <class>java.awt.Window</class>
+      <method>dispatchEventImpl</method>
+    </frame>
+    <frame>
+      <class>java.awt.Component</class>
+      <method>dispatchEvent</method>
+    </frame>
+    <frame>
+      <class>java.awt.EventQueue</class>
+      <method>dispatchEventImpl</method>
+    </frame>
+    <frame>
+      <class>java.awt.EventQueue</class>
+      <method>access$500</method>
+    </frame>
+    <frame>
+      <class>java.awt.EventQueue$3</class>
+      <method>run</method>
+    </frame>
+    <frame>
+      <class>java.awt.EventQueue$3</class>
+      <method>run</method>
+    </frame>
+    <frame>
+      <class>java.security.AccessController</class>
+      <method>doPrivileged</method>
+    </frame>
+    <frame>
+      <class>java.security.ProtectionDomain$JavaSecurityAccessImpl</class>
+      <method>doIntersectionPrivilege</method>
+    </frame>
+    <frame>
+      <class>java.security.ProtectionDomain$JavaSecurityAccessImpl</class>
+      <method>doIntersectionPrivilege</method>
+    </frame>
+    <frame>
+      <class>java.awt.EventQueue$4</class>
+      <method>run</method>
+    </frame>
+    <frame>
+      <class>java.awt.EventQueue$4</class>
+      <method>run</method>
+    </frame>
+    <frame>
+      <class>java.security.AccessController</class>
+      <method>doPrivileged</method>
+    </frame>
+    <frame>
+      <class>java.security.ProtectionDomain$JavaSecurityAccessImpl</class>
+      <method>doIntersectionPrivilege</method>
+    </frame>
+    <frame>
+      <class>java.awt.EventQueue</class>
+      <method>dispatchEvent</method>
+    </frame>
+    <frame>
+      <class>java.awt.EventDispatchThread</class>
+      <method>pumpOneEventForFilters</method>
+    </frame>
+    <frame>
+      <class>java.awt.EventDispatchThread</class>
+      <method>pumpEventsForFilter</method>
+    </frame>
+    <frame>
+      <class>java.awt.EventDispatchThread</class>
+      <method>pumpEventsForHierarchy</method>
+    </frame>
+    <frame>
+      <class>java.awt.EventDispatchThread</class>
+      <method>pumpEvents</method>
+    </frame>
+    <frame>
+      <class>java.awt.EventDispatchThread</class>
+      <method>pumpEvents</method>
+    </frame>
+    <frame>
+      <class>java.awt.EventDispatchThread</class>
+      <method>run</method>
+    </frame>
+  </exception>
+</record>
+<record>
+  <date>2020-01-09T18:17:40</date>
+  <millis>1578590260217</millis>
+  <sequence>2</sequence>
+  <logger>Ejemplo_logger</logger>
+  <level>INFO</level>
+  <class>Clase.cap01.ejercicios.EjercicioLogger$1</class>
+  <method>actionPerformed</method>
+  <thread>16</thread>
+  <message>Editado el textfield.</message>
+</record>
+<record>
+  <date>2020-01-09T18:17:48</date>
+  <millis>1578590268734</millis>
+  <sequence>3</sequence>
+  <logger>Ejemplo_logger</logger>
+  <level>INFO</level>
+  <class>Clase.cap01.ejercicios.EjercicioLogger</class>
+  <method>sacaFicheros</method>
+  <thread>16</thread>
+  <message>Número de ficheros en la carpeta My Games: 1</message>
+</record>
+<record>
+  <date>2020-01-09T18:17:48</date>
+  <millis>1578590268735</millis>
+  <sequence>4</sequence>
+  <logger>Ejemplo_logger</logger>
+  <level>INFO</level>
+  <class>Clase.cap01.ejercicios.EjercicioLogger$2</class>
+  <method>actionPerformed</method>
+  <thread>16</thread>
+  <message>Pulsado el botón buscar.</message>
+</record>
+<record>
+  <date>2020-01-09T18:17:52</date>
+  <millis>1578590272040</millis>
+  <sequence>5</sequence>
+  <logger>Ejemplo_logger</logger>
+  <level>INFO</level>
+  <class>Clase.cap01.ejercicios.EjercicioLogger</class>
+  <method>sacaFicheros</method>
+  <thread>16</thread>
+  <message>Número de ficheros en la carpeta Documents: 14</message>
+</record>
+<record>
+  <date>2020-01-09T18:17:52</date>
+  <millis>1578590272040</millis>
+  <sequence>6</sequence>
+  <logger>Ejemplo_logger</logger>
+  <level>INFO</level>
+  <class>Clase.cap01.ejercicios.EjercicioLogger$2</class>
+  <method>actionPerformed</method>
+  <thread>16</thread>
+  <message>Pulsado el botón buscar.</message>
+</record>
